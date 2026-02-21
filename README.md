@@ -9,7 +9,8 @@ This project extends MUTEX (Multilingual Transformer + CRF for Urdu Toxic Span D
 | Audio only | Wav2Vec2 | 70% |
 | **Multimodal Fusion** | **XLM-RoBERTa + Wav2Vec2** | **79.34%** |
 
-🗂️ Project Structure
+## 🗂️ Project Structure
+```
 📁 Project
 │
 ├── 📓 Notebook 1 — Text Model (MUTEX)
@@ -29,6 +30,7 @@ This project extends MUTEX (Multilingual Transformer + CRF for Urdu Toxic Span D
     ├── URTOX_v2.csv                    ← Original text dataset (14,342 samples)
     ├── urdu_toxic_audio_dataset.csv    ← Dataset with audio paths
     └── urdu_toxic_audio_og/            ← MP3 audio files folder
+```
 
 📊 Dataset — URTOX
 URTOX is a manually annotated Urdu toxic span dataset containing 14,342 samples collected from:
@@ -52,40 +54,10 @@ sub_label     → toxicity category (hate, insult, offensive, neutral)
 audio_path    → path to corresponding MP3 file
 
 
-┌─────────────────────────────────────────────────────┐
-│                   INPUT: Audio File                  │
-└──────────────────────┬──────────────────────────────┘
-                       │
-          ┌────────────┴────────────┐
-          │                         │
-          ▼                         ▼
-  ┌───────────────┐        ┌─────────────────┐
-  │   Wav2Vec2    │        │  XLM-RoBERTa    │
-  │  (Audio       │        │  (Text Model)   │
-  │   Features)   │        │                 │
-  └───────┬───────┘        └────────┬────────┘
-          │                         │
-          ▼                         ▼
-  ┌───────────────┐        ┌─────────────────┐
-  │ Audio Toxic   │        │  Toxic Span     │
-  │ Classifier    │        │  Detection      │
-  │ P(toxic)=70% │        │  P(toxic)=67%  │
-  └───────┬───────┘        └────────┬────────┘
-          │                         │
-          └────────────┬────────────┘
-                       ▼
-          ┌────────────────────────┐
-          │    Late Fusion         │
-          │  0.4 × audio +         │
-          │  0.6 × text            │
-          └────────────┬───────────┘
-                       ▼
-          ┌────────────────────────┐
-          │     FINAL OUTPUT       │
-          │  ✅ Toxic / Non-Toxic  │
-          │  ⚠️  Toxic Spans       │
-          │  📊 Confidence Score   │
-          └────────────────────────┘
+<img width="1105" height="272" alt="image" src="https://github.com/user-attachments/assets/cf15574c-d65c-4adb-9af1-37cd694e243d" />
+
+<img width="1080" height="332" alt="image" src="https://github.com/user-attachments/assets/dccf1ca4-de1f-4b92-8550-4e983601b35d" />
+
           
 ## 📝 About
 
