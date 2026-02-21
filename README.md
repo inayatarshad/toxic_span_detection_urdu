@@ -1,3 +1,13 @@
+🔍 Multimodal Urdu Toxic Span Detection
+A multimodal framework for detecting toxic content in Urdu text and audio, combining XLM-RoBERTa for text-based toxic span detection with Wav2Vec2 for audio-based toxicity classification via late fusion.
+
+📌 Overview
+This project extends MUTEX (Multilingual Transformer + CRF for Urdu Toxic Span Detection) by adding an audio modality, creating the first multimodal pipeline for Urdu toxic content detection.
+| Modality | Model | F1 Score |
+|---|---|---|
+| Text only | XLM-RoBERTa | 67% |
+| Audio only | Wav2Vec2 | 70% |
+| **Multimodal Fusion** | **XLM-RoBERTa + Wav2Vec2** | **79.34%** |
 This project focuses on toxic span detection in Urdu text using a transformer-based token classification approach. The goal is not only to identify whether a sentence contains toxic content, but also to locate and highlight the specific toxic words or spans within the text. In Urdu language, no work has been done prior in span detection. This is the first time, we propose toxicity span detection. For this purpose, the model is built using XLM-RoBERTa, a multilingual pretrained language model well-suited for low-resource languages such as Urdu. The system can be trained on annotated toxic span datasets and then used for inference to mark toxic segments in new sentences. We also wrote a journal that has been submitted to Elsevier Applied Soft Computing and will be published soon.
 
 Task: Toxic span detection at word/token level in Urdu
