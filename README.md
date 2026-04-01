@@ -1,4 +1,4 @@
-🔍 Multimodal Urdu Toxic Span Detection
+<img width="1330" height="633" alt="image" src="https://github.com/user-attachments/assets/9f2ef372-a5ba-463b-b767-55466bfe36a0" />🔍 Multimodal Urdu Toxic Span Detection
 A multimodal framework for detecting toxic content in Urdu text and audio, combining XLM-RoBERTa for text-based toxic span detection with Wav2Vec2 for audio-based toxicity classification via late fusion.
 
 📌 Overview
@@ -54,9 +54,15 @@ sub_label     → toxicity category (hate, insult, offensive, neutral)
 audio_path    → path to corresponding MP3 file
 
 
-<img width="1105" height="272" alt="image" src="https://github.com/user-attachments/assets/cf15574c-d65c-4adb-9af1-37cd694e243d" />
+<img width="1331" height="630" alt="image" src="https://github.com/user-attachments/assets/84e8a843-be68-4a55-b072-1b94fb7abd8d" />
+<img width="1330" height="633" alt="image" src="https://github.com/user-attachments/assets/ab43a77a-c804-49d6-8b47-46cdf474351c" />
+<img width="1330" height="634" alt="image" src="https://github.com/user-attachments/assets/741f4dee-817e-4340-98f8-804e73192d1a" />
+<img width="1330" height="635" alt="image" src="https://github.com/user-attachments/assets/b88cac6d-b2db-4d2c-86d0-1cb56133b1c0" />
+<img width="1333" height="634" alt="image" src="https://github.com/user-attachments/assets/3cae1b13-cbee-4232-9575-778c81f8f8f0" />
 
-<img width="1080" height="332" alt="image" src="https://github.com/user-attachments/assets/dccf1ca4-de1f-4b92-8550-4e983601b35d" />
+
+
+
 
           
 ## 📝 About
