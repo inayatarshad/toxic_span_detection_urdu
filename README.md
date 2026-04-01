@@ -1,4 +1,4 @@
-<img width="1330" height="633" alt="image" src="https://github.com/user-attachments/assets/9f2ef372-a5ba-463b-b767-55466bfe36a0" />🔍 Multimodal Urdu Toxic Span Detection
+🔍 Multimodal Urdu Toxic Span Detection
 A multimodal framework for detecting toxic content in Urdu text and audio, combining XLM-RoBERTa for text-based toxic span detection with Wav2Vec2 for audio-based toxicity classification via late fusion.
 
 📌 Overview
