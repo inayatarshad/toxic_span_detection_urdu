@@ -12,7 +12,10 @@ export default function MutexWithXAI() {
   const [recordingTime, setRecordingTime] = useState(0);
   const fileInputRef = useRef(null);
   const recordingInterval = useRef(null);
-  const API_URL = "https://foraminate-olevia-periodontal.ngrok-free.dev";  // Mock API call - replace with your actual MUTEX-M model endpoint
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const API_URL = "https://foraminate-olevia-periodontal.ngrok-free.dev";
+
   const analyzeToxicity = async (input, type) => {
     setIsAnalyzing(true);
     try {
@@ -40,6 +43,7 @@ export default function MutexWithXAI() {
       });
 
       const data = await res.json();
+      console.log('API Response:', JSON.stringify(data));
       setResults(data);
 
     } catch (err) {
@@ -60,22 +64,46 @@ export default function MutexWithXAI() {
     const file = e.target.files[0];
     if (file) {
       setAudioFile(file);
-      analyzeToxicity(file, 'audio');
     }
   };
 
-  const startRecording = () => {
-    setIsRecording(true);
-    setRecordingTime(0);
-    recordingInterval.current = setInterval(() => {
-      setRecordingTime(prev => prev + 1);
-    }, 1000);
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      audioChunksRef.current = [];
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) {
+          audioChunksRef.current.push(e.data);
+        }
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+      setRecordingTime(0);
+      recordingInterval.current = setInterval(() => {
+        setRecordingTime(prev => prev + 1);
+      }, 1000);
+    } catch (err) {
+      alert('Microphone access denied. Please allow microphone access and try again.');
+      console.error(err);
+    }
   };
 
   const stopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.onstop = () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        setAudioFile(audioBlob);
+        analyzeToxicity(audioBlob, 'audio');
+        mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+      };
+      mediaRecorderRef.current.stop();
+    }
     setIsRecording(false);
     clearInterval(recordingInterval.current);
-    analyzeToxicity(new Blob(), 'audio');
   };
 
   const clearAll = () => {
@@ -113,17 +141,14 @@ export default function MutexWithXAI() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 p-6">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Inter:wght@300;400;600;700&display=swap');
-        
         @keyframes pulse-ring {
           0% { transform: scale(0.95); opacity: 1; }
           100% { transform: scale(1.2); opacity: 0; }
         }
-        
         @keyframes shimmer {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }
         }
-        
         .toxic-highlight {
           background: linear-gradient(120deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.3));
           padding: 2px 6px;
@@ -131,7 +156,6 @@ export default function MutexWithXAI() {
           border-bottom: 2px solid #ef4444;
           position: relative;
         }
-        
         .toxic-highlight::before {
           content: '';
           position: absolute;
@@ -142,54 +166,36 @@ export default function MutexWithXAI() {
           z-index: -1;
           animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
-        
         .word-fade-in {
           animation: fadeInUp 0.4s ease-out forwards;
           opacity: 0;
         }
-        
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        
         .glass-card {
           background: rgba(255, 255, 255, 0.05);
           backdrop-filter: blur(10px);
           border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .shap-bar {
-          position: relative;
-          overflow: hidden;
-        }
-        
+        .shap-bar { position: relative; overflow: hidden; }
         .shap-bar::before {
           content: '';
           position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
+          top: 0; left: -100%;
+          width: 100%; height: 100%;
           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
           animation: shimmer 2s infinite;
         }
       `}</style>
 
-      {/* Floating Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-20 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent mb-3">
             Multimodal Urdu Toxic Span Detection
@@ -203,7 +209,6 @@ export default function MutexWithXAI() {
           </div>
         </div>
 
-        {/* Mode Selector */}
         <div className="flex gap-4 mb-8 justify-center">
           <button
             onClick={() => setActiveTab('text')}
@@ -229,7 +234,6 @@ export default function MutexWithXAI() {
           </button>
         </div>
 
-        {/* Main Content */}
         <div className="glass-card rounded-3xl p-8 shadow-2xl">
           {activeTab === 'text' ? (
             <form onSubmit={handleTextSubmit} className="space-y-6">
@@ -265,7 +269,6 @@ export default function MutexWithXAI() {
                   </span>
                 </div>
               </div>
-
               <div className="flex gap-4">
                 <button
                   type="submit"
@@ -277,26 +280,18 @@ export default function MutexWithXAI() {
                            shadow-lg hover:shadow-purple-500/50 flex items-center justify-center gap-3"
                 >
                   {isAnalyzing ? (
-                    <>
-                      <Loader className="w-5 h-5 animate-spin" />
-                      Analyzing...
-                    </>
+                    <><Loader className="w-5 h-5 animate-spin" />Analyzing...</>
                   ) : (
-                    <>
-                      <BarChart3 className="w-5 h-5" />
-                      Detect Toxic Spans
-                    </>
+                    <><BarChart3 className="w-5 h-5" />Detect Toxic Spans</>
                   )}
                 </button>
-                
                 <button
                   type="button"
                   onClick={clearAll}
                   className="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-4 px-8 rounded-xl
                            transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
                 >
-                  <X className="w-5 h-5" />
-                  Clear
+                  <X className="w-5 h-5" />Clear
                 </button>
               </div>
             </form>
@@ -307,7 +302,6 @@ export default function MutexWithXAI() {
                   <Volume2 className="w-5 h-5" />
                   Upload or Record Audio
                 </label>
-                
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div
                     onClick={() => fileInputRef.current?.click()}
@@ -324,7 +318,7 @@ export default function MutexWithXAI() {
                     <Upload className="w-12 h-12 text-blue-400 mx-auto mb-4" />
                     <p className="text-center text-slate-300 font-semibold mb-2">Upload Audio File</p>
                     <p className="text-center text-sm text-slate-500">MP3, WAV, OGG</p>
-                    {audioFile && (
+                    {audioFile && audioFile.name && (
                       <p className="text-center text-green-400 text-sm mt-4">✓ {audioFile.name}</p>
                     )}
                   </div>
@@ -357,13 +351,38 @@ export default function MutexWithXAI() {
                   </div>
                 </div>
               </div>
+
+              {audioFile && (
+                <div className="flex gap-4 mt-4">
+                  <button
+                    onClick={() => analyzeToxicity(audioFile, 'audio')}
+                    disabled={isAnalyzing}
+                    className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700
+                             disabled:from-slate-700 disabled:to-slate-700 disabled:cursor-not-allowed
+                             text-white font-bold py-4 px-8 rounded-xl text-lg
+                             transition-all duration-300 transform hover:scale-[1.02]
+                             flex items-center justify-center gap-3"
+                  >
+                    {isAnalyzing ? (
+                      <><Loader className="w-5 h-5 animate-spin" />Analyzing Audio...</>
+                    ) : (
+                      <><BarChart3 className="w-5 h-5" />Detect Toxic Spans</>
+                    )}
+                  </button>
+                  <button
+                    onClick={clearAll}
+                    className="bg-slate-700 hover:bg-slate-600 text-white font-semibold py-4 px-8 rounded-xl
+                             transition-all duration-300 flex items-center gap-2"
+                  >
+                    <X className="w-5 h-5" />Clear
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
-          {/* Results Section */}
           {results && (
             <div className="mt-8 pt-8 border-t border-purple-500/30">
-              {/* Status Header with Confidence and Sub-label */}
               <div className="space-y-4 mb-6">
                 <div className="flex items-center justify-center">
                   {results.isToxic ? (
@@ -379,7 +398,6 @@ export default function MutexWithXAI() {
                   )}
                 </div>
 
-                {/* Confidence and Sub-label Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="glass-card rounded-xl p-4 border border-purple-500/20">
                     <div className="flex items-center gap-2 mb-2">
@@ -406,7 +424,7 @@ export default function MutexWithXAI() {
                       <span className="font-bold text-lg capitalize">{results.subLabel}</span>
                     </div>
                     <p className="text-xs text-slate-500 mt-2">
-                      {(results.subLabelConfidence * 100).toFixed(1)}% confidence
+                      {((results.subLabelConfidence || results.confidence) * 100).toFixed(1)}% confidence
                     </p>
                   </div>
 
@@ -416,18 +434,13 @@ export default function MutexWithXAI() {
                         <TrendingUp className="w-5 h-5 text-orange-400" />
                         <p className="text-sm text-slate-400">Toxic Spans Found</p>
                       </div>
-                      <p className="text-3xl font-bold text-orange-300">
-                        {results.toxicSpanCount}
-                      </p>
-                      <p className="text-xs text-slate-500 mt-2">
-                        Identified using BIO tagging
-                      </p>
+                      <p className="text-3xl font-bold text-orange-300">{results.toxicSpanCount}</p>
+                      <p className="text-xs text-slate-500 mt-2">Identified using BIO tagging</p>
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Audio Transcript */}
               {results.transcript && (
                 <div className="glass-card rounded-xl p-4 mb-6 border border-blue-500/20">
                   <p className="text-sm text-slate-400 mb-2 flex items-center gap-2">
@@ -438,25 +451,23 @@ export default function MutexWithXAI() {
                 </div>
               )}
 
-              {/* Analyzed Text with Toxic Spans */}
               <div className="glass-card rounded-2xl p-6 border border-purple-500/20 mb-6">
                 <h3 className="text-purple-300 font-semibold mb-4 flex items-center gap-2">
                   <BarChart3 className="w-5 h-5" />
                   Token-Level Analysis
                 </h3>
                 <div className="text-xl leading-relaxed mb-4">
-                  {results.words.map((word, idx) => (
+                  {(results.words || []).map((word, idx) => (
                     <span
-                      key={word.id}
+                      key={idx}
                       className={`word-fade-in ${word.toxic ? 'toxic-highlight text-red-200 font-bold' : 'text-slate-200'}`}
                       style={{ animationDelay: `${idx * 0.05}s` }}
                       title={`BIO: ${word.bioTag || 'O'} | Confidence: ${((word.confidence || 0) * 100).toFixed(1)}%`}
                     >
-                      {word.text}
+                      {word.text}{' '}
                     </span>
                   ))}
                 </div>
-                
                 {results.isToxic && (
                   <div className="pt-4 border-t border-purple-500/20">
                     <p className="text-sm text-slate-400 flex items-center gap-2">
@@ -467,7 +478,6 @@ export default function MutexWithXAI() {
                 )}
               </div>
 
-              {/* XAI Explainability Section */}
               {results.xai && (
                 <div className="glass-card rounded-2xl p-6 border border-indigo-500/20">
                   <div className="flex items-center justify-between mb-4">
@@ -485,13 +495,11 @@ export default function MutexWithXAI() {
 
                   {showXAI && (
                     <div className="space-y-4">
-                      {/* Model Explanation */}
                       <div className="bg-slate-900/50 rounded-xl p-4">
                         <p className="text-sm text-slate-400 mb-2 font-semibold">Model Explanation:</p>
                         <p className="text-slate-300">{results.xai.modelExplanation}</p>
                       </div>
 
-                      {/* SHAP Attribution Scores */}
                       {results.xai.topToxicTokens && results.xai.topToxicTokens.length > 0 && (
                         <div>
                           <p className="text-sm text-slate-400 mb-3 font-semibold flex items-center gap-2">
@@ -514,7 +522,7 @@ export default function MutexWithXAI() {
                                   ></div>
                                 </div>
                                 <p className="text-xs text-slate-500 mt-1">
-                                  Confidence: {(token.confidence * 100).toFixed(1)}%
+                                  Confidence: {((token.confidence || token.attribution) * 100).toFixed(1)}%
                                 </p>
                               </div>
                             ))}
@@ -522,28 +530,28 @@ export default function MutexWithXAI() {
                         </div>
                       )}
 
-                      {/* Integrated Gradients */}
-                      <div className="bg-slate-900/50 rounded-xl p-4">
-                        <p className="text-sm text-slate-400 mb-2 font-semibold">Integrated Gradients Score:</p>
-                        <div className="flex items-center gap-4">
-                          <div className="flex-1">
-                            <div className="w-full bg-slate-700 rounded-full h-3">
-                              <div 
-                                className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-500"
-                                style={{ width: `${results.xai.integratedGradients * 100}%` }}
-                              ></div>
+                      {results.xai.integratedGradients !== undefined && (
+                        <div className="bg-slate-900/50 rounded-xl p-4">
+                          <p className="text-sm text-slate-400 mb-2 font-semibold">Integrated Gradients Score:</p>
+                          <div className="flex items-center gap-4">
+                            <div className="flex-1">
+                              <div className="w-full bg-slate-700 rounded-full h-3">
+                                <div 
+                                  className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-500"
+                                  style={{ width: `${results.xai.integratedGradients * 100}%` }}
+                                ></div>
+                              </div>
                             </div>
+                            <span className="text-2xl font-bold text-purple-300">
+                              {(results.xai.integratedGradients * 100).toFixed(1)}%
+                            </span>
                           </div>
-                          <span className="text-2xl font-bold text-purple-300">
-                            {(results.xai.integratedGradients * 100).toFixed(1)}%
-                          </span>
+                          <p className="text-xs text-slate-500 mt-2">
+                            Measures feature importance through gradient-based attribution
+                          </p>
                         </div>
-                        <p className="text-xs text-slate-500 mt-2">
-                          Measures feature importance through gradient-based attribution
-                        </p>
-                      </div>
+                      )}
 
-                      {/* XAI Method Info */}
                       <div className="bg-indigo-900/20 border border-indigo-500/30 rounded-xl p-4">
                         <p className="text-sm text-indigo-300 mb-2 font-semibold flex items-center gap-2">
                           <Info className="w-4 h-4" />
@@ -560,7 +568,6 @@ export default function MutexWithXAI() {
                 </div>
               )}
 
-              {/* Footer Info */}
               <div className="mt-6 text-center text-sm text-slate-400">
                 <p>Analyzed using explainable AI-powered toxic span detection</p>
               </div>
@@ -568,7 +575,6 @@ export default function MutexWithXAI() {
           )}
         </div>
 
-        {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-slate-400 text-sm">
             Multimodal Urdu Toxic Span Detection System
