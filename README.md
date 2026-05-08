@@ -54,6 +54,8 @@ label         → sentence-level label (toxic / non_toxic)
 sub_label     → toxicity category (hate, insult, offensive, neutral)
 audio_path    → path to corresponding MP3 file
 
+**Video Demo
+https://www.loom.com/share/98725ce0fb2a498bbf37f21a81cd5e59
 
 <img width="1331" height="630" alt="image" src="https://github.com/user-attachments/assets/84e8a843-be68-4a55-b072-1b94fb7abd8d" />
 <img width="1330" height="633" alt="image" src="https://github.com/user-attachments/assets/ab43a77a-c804-49d6-8b47-46cdf474351c" />
