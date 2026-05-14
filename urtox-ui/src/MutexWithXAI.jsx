@@ -350,22 +350,6 @@ export default function MutexWithXAI() {
                     Supports both Nastaliq and Roman Urdu
                   </span>
                 </div>
-                <div className="flex flex-wrap gap-3 mt-4">
-                  <button
-                    type="button"
-                    onClick={() => setInputText(DEMO_SAFE_TEXT)}
-                    className="px-4 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-600 transition-colors"
-                  >
-                    Safe demo text
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setInputText(DEMO_TOXIC_TEXT)}
-                    className="px-4 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-100 border border-red-500/40 transition-colors"
-                  >
-                    Toxic demo text
-                  </button>
-                </div>
               </div>
               <div className="flex gap-4">
                 <button
