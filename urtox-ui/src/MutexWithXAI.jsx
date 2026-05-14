@@ -1,12 +1,63 @@
 import React, { useState, useRef } from 'react';
 import { Upload, Mic, FileText, AlertCircle, CheckCircle, Loader, X, Volume2, BarChart3, Info, Brain, Target, TrendingUp } from 'lucide-react';
 
+const API_URL = process.env.REACT_APP_API_URL || "https://finalyear226-urtox-api.hf.space";
+const USE_DEMO_FALLBACK = process.env.REACT_APP_DEMO_FALLBACK !== "false";
+const DEMO_SAFE_TEXT = "yeh aik normal aur respectful jumla hai";
+const DEMO_TOXIC_TEXT = "yeh bad aur toxic jumla hai";
+
+const createDemoResult = (input, type) => {
+  const transcript = type === "audio"
+    ? "Demo transcript from uploaded or recorded audio with bad toxic wording"
+    : input;
+  const sourceText = (transcript || DEMO_TOXIC_TEXT).trim();
+  const tokens = sourceText.split(/\s+/).filter(Boolean);
+  const toxicHints = ["bad", "hate", "idiot", "stupid", "gali", "toxic", "offensive", "abuse"];
+  const toxicIndexes = tokens
+    .map((token, index) => ({ token, index }))
+    .filter(({ token }) => toxicHints.some((hint) => token.toLowerCase().includes(hint)))
+    .map(({ index }) => index);
+  const selectedIndexes = toxicIndexes;
+  const selectedSet = new Set(selectedIndexes);
+  const isToxic = selectedIndexes.length > 0;
+
+  const words = tokens.map((token, index) => ({
+    text: token,
+    toxic: selectedSet.has(index),
+    bioTag: selectedSet.has(index) ? (index === selectedIndexes[0] ? "B-Toxic" : "I-Toxic") : "O",
+    confidence: selectedSet.has(index) ? 0.89 : 0.08
+  }));
+
+  return {
+    isToxic,
+    confidence: isToxic ? 0.91 : 0.94,
+    subLabel: isToxic ? "offensive" : "neutral",
+    subLabelConfidence: isToxic ? 0.87 : 0.92,
+    toxicSpanCount: selectedIndexes.length,
+    transcript: type === "audio" ? transcript : undefined,
+    words,
+    demoMode: true,
+    xai: {
+      modelExplanation: isToxic
+        ? "Demo fallback is active because the live model API could not be reached. Highlighted words are synthetic examples using the same response shape expected from the deployed model."
+        : "Demo fallback is active because the live model API could not be reached. No toxic spans were found in this safe sample.",
+      topToxicTokens: selectedIndexes.map((index) => ({
+        token: tokens[index],
+        attribution: 0.74,
+        confidence: 0.89
+      })),
+      integratedGradients: isToxic ? 0.78 : 0.12
+    }
+  };
+};
+
 export default function MutexWithXAI() {
   const [activeTab, setActiveTab] = useState('text');
   const [inputText, setInputText] = useState('');
   const [audioFile, setAudioFile] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [results, setResults] = useState(null);
+  const [apiStatus, setApiStatus] = useState(null);
   const [showXAI, setShowXAI] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
@@ -14,10 +65,10 @@ export default function MutexWithXAI() {
   const recordingInterval = useRef(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
-  const API_URL = "https://foraminate-olevia-periodontal.ngrok-free.dev";
 
   const analyzeToxicity = async (input, type) => {
     setIsAnalyzing(true);
+    setApiStatus(null);
     try {
       let body;
 
@@ -42,13 +93,31 @@ export default function MutexWithXAI() {
         body: JSON.stringify(body)
       });
 
+      if (!res.ok) {
+        throw new Error(`API returned ${res.status}`);
+      }
+
       const data = await res.json();
       console.log('API Response:', JSON.stringify(data));
       setResults(data);
+      setApiStatus({ type: "live", message: "Live model API connected" });
 
     } catch (err) {
       console.error(err);
-      alert('API error — is your Colab cell still running?');
+      if (USE_DEMO_FALLBACK) {
+        setResults(createDemoResult(type === "text" ? input : null, type));
+        setApiStatus({
+          type: "demo",
+          message: "Live API unavailable. Showing open-house demo fallback."
+        });
+      } else {
+        setApiStatus({
+          type: "error",
+          message: "API unavailable. Check whether the backend is running."
+        });
+      }
+      setIsAnalyzing(false);
+      return;
     }
     setIsAnalyzing(false);
   };
@@ -110,6 +179,7 @@ export default function MutexWithXAI() {
     setInputText('');
     setAudioFile(null);
     setResults(null);
+    setApiStatus(null);
     setRecordingTime(0);
   };
 
@@ -235,6 +305,18 @@ export default function MutexWithXAI() {
         </div>
 
         <div className="glass-card rounded-3xl p-8 shadow-2xl">
+          {apiStatus && (
+            <div className={`mb-6 rounded-xl border px-4 py-3 text-sm ${
+              apiStatus.type === "live"
+                ? "border-green-500/40 bg-green-500/10 text-green-200"
+                : apiStatus.type === "demo"
+                  ? "border-yellow-500/40 bg-yellow-500/10 text-yellow-100"
+                  : "border-red-500/40 bg-red-500/10 text-red-100"
+            }`}>
+              {apiStatus.message}
+            </div>
+          )}
+
           {activeTab === 'text' ? (
             <form onSubmit={handleTextSubmit} className="space-y-6">
               <div>
@@ -267,6 +349,22 @@ export default function MutexWithXAI() {
                     <Info className="w-4 h-4" />
                     Supports both Nastaliq and Roman Urdu
                   </span>
+                </div>
+                <div className="flex flex-wrap gap-3 mt-4">
+                  <button
+                    type="button"
+                    onClick={() => setInputText(DEMO_SAFE_TEXT)}
+                    className="px-4 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-600 transition-colors"
+                  >
+                    Safe demo text
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setInputText(DEMO_TOXIC_TEXT)}
+                    className="px-4 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-100 border border-red-500/40 transition-colors"
+                  >
+                    Toxic demo text
+                  </button>
                 </div>
               </div>
               <div className="flex gap-4">
