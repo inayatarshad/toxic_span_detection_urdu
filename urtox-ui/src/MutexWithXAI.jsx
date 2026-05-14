@@ -75,13 +75,13 @@ export default function MutexWithXAI() {
       if (type === 'text') {
         body = { mode: 'text', text: input };
       } else {
-        const base64 = await new Promise((resolve, reject) => {
+        const audioDataUrl = await new Promise((resolve, reject) => {
           const reader = new FileReader();
-          reader.onload = () => resolve(reader.result.split(',')[1]);
+          reader.onload = () => resolve(reader.result);
           reader.onerror = reject;
           reader.readAsDataURL(input);
         });
-        body = { mode: 'audio', audio: base64 };
+        body = { mode: 'audio', audio: audioDataUrl };
       }
 
       const res = await fetch(`${API_URL}/detect`, {
