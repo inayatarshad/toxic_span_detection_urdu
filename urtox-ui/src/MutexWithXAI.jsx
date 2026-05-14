@@ -2,54 +2,6 @@ import React, { useState, useRef } from 'react';
 import { Upload, Mic, FileText, AlertCircle, CheckCircle, Loader, X, Volume2, BarChart3, Info, Brain, Target, TrendingUp } from 'lucide-react';
 
 const API_URL = process.env.REACT_APP_API_URL || "https://finalyear226-urtox-api.hf.space";
-const USE_DEMO_FALLBACK = process.env.REACT_APP_DEMO_FALLBACK !== "false";
-const DEMO_SAFE_TEXT = "yeh aik normal aur respectful jumla hai";
-const DEMO_TOXIC_TEXT = "yeh bad aur toxic jumla hai";
-
-const createDemoResult = (input, type) => {
-  const transcript = type === "audio"
-    ? "Demo transcript from uploaded or recorded audio with bad toxic wording"
-    : input;
-  const sourceText = (transcript || DEMO_TOXIC_TEXT).trim();
-  const tokens = sourceText.split(/\s+/).filter(Boolean);
-  const toxicHints = ["bad", "hate", "idiot", "stupid", "gali", "toxic", "offensive", "abuse"];
-  const toxicIndexes = tokens
-    .map((token, index) => ({ token, index }))
-    .filter(({ token }) => toxicHints.some((hint) => token.toLowerCase().includes(hint)))
-    .map(({ index }) => index);
-  const selectedIndexes = toxicIndexes;
-  const selectedSet = new Set(selectedIndexes);
-  const isToxic = selectedIndexes.length > 0;
-
-  const words = tokens.map((token, index) => ({
-    text: token,
-    toxic: selectedSet.has(index),
-    bioTag: selectedSet.has(index) ? (index === selectedIndexes[0] ? "B-Toxic" : "I-Toxic") : "O",
-    confidence: selectedSet.has(index) ? 0.89 : 0.08
-  }));
-
-  return {
-    isToxic,
-    confidence: isToxic ? 0.91 : 0.94,
-    subLabel: isToxic ? "offensive" : "neutral",
-    subLabelConfidence: isToxic ? 0.87 : 0.92,
-    toxicSpanCount: selectedIndexes.length,
-    transcript: type === "audio" ? transcript : undefined,
-    words,
-    demoMode: true,
-    xai: {
-      modelExplanation: isToxic
-        ? "Demo fallback is active because the live model API could not be reached. Highlighted words are synthetic examples using the same response shape expected from the deployed model."
-        : "Demo fallback is active because the live model API could not be reached. No toxic spans were found in this safe sample.",
-      topToxicTokens: selectedIndexes.map((index) => ({
-        token: tokens[index],
-        attribution: 0.74,
-        confidence: 0.89
-      })),
-      integratedGradients: isToxic ? 0.78 : 0.12
-    }
-  };
-};
 
 export default function MutexWithXAI() {
   const [activeTab, setActiveTab] = useState('text');
@@ -104,18 +56,11 @@ export default function MutexWithXAI() {
 
     } catch (err) {
       console.error(err);
-      if (USE_DEMO_FALLBACK) {
-        setResults(createDemoResult(type === "text" ? input : null, type));
-        setApiStatus({
-          type: "demo",
-          message: "Live API unavailable. Showing open-house demo fallback."
-        });
-      } else {
-        setApiStatus({
-          type: "error",
-          message: "API unavailable. Check whether the backend is running."
-        });
-      }
+      setResults(null);
+      setApiStatus({
+        type: "error",
+        message: "API unavailable. Check whether the backend is running."
+      });
       setIsAnalyzing(false);
       return;
     }
