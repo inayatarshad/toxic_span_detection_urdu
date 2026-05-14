@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+
+hf-space-api/artifacts/
+hf-space-api-deploy/
+hf-space-api-hf/
