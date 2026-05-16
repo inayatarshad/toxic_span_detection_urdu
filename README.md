@@ -85,6 +85,7 @@ first proposed framework for fine-grained toxicity localization in Urdu.
 
 So, updates that i made towards the end of the project , was exploring agentic AI part that can be integrated in my NLP project, so I used Lyzr.AI for a real time agent(just for fun), that can call you and basically will take out the toxic spans in the sentence and will be able to give better recommendations on what can be replaced for the toxic words by keeping the context same ,but using politer and user friendly terms, It will also be able to provide you detailed information about NLP, and  its tasks. Loom link:👇
 https://www.loom.com/share/ead63d8b123545a890d10bab056705e3
+### 🗨️ CHAT with the agent: https://studio.lyzr.ai/agent/6a082bcbd03c5f2980ab22ba/
 ### 🎯 Task Summary
 
 | Component | Details |
