@@ -216,7 +216,7 @@ export default function MutexWithXAI() {
             Multimodal Urdu Toxic Span Detection
           </h1>
           <p className="text-slate-300 text-lg mb-2">
-            Detect toxic content in Urdu text and audio with AI explainability
+            Detect toxic content in Urdu text, roman urdu, english and audio with AI explainability
           </p>
           <div className="flex items-center justify-center gap-2 text-sm text-slate-400">
             <Brain className="w-4 h-4" />
