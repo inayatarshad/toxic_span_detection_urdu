@@ -26,6 +26,14 @@ const COLUMNS = [
     ],
   },
   {
+    title: "Run it",
+    links: [
+      { label: "Live detector", href: "#/detector" },
+      { label: "Dataset on Hugging Face", href: LINKS.dataset, external: true },
+      { label: "Reproducibility", href: "#reproducibility" },
+    ],
+  },
+  {
     title: "Use it",
     links: [
       { label: "Research pipeline", href: "#pipeline" },
@@ -83,6 +91,7 @@ export default function Footer() {
                     <li key={l.href}>
                       <a
                         href={l.href}
+                        {...(l.external ? { target: "_blank", rel: "noreferrer" } : {})}
                         className="text-sm text-forest-mid transition-colors hover:text-merlot-mid"
                       >
                         {l.label}
