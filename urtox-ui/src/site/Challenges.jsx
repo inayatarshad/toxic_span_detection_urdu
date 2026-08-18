@@ -9,7 +9,7 @@ import {
   MessageCircleQuestion,
   Layers,
 } from "lucide-react";
-import { Section, Reveal, Source } from "./ui";
+import { Section, Reveal, Source, Nastaliq } from "./ui";
 import { URDU_CHALLENGES } from "../data/research";
 
 const ICONS = {
@@ -35,6 +35,11 @@ export default function Challenges() {
       title="Why this is not a solved problem in translation"
       lead="These are the specific obstacles the research documents. Each one is paired with the measurement from the papers that quantifies it, rather than left as a general claim about difficulty."
     >
+            {/* زبان, "language" */}
+      <Nastaliq className={"-right-4 top-10 text-white/[0.05] sm:right-2"} size="clamp(7rem, 15vw, 15rem)">
+        زبان
+      </Nastaliq>
+
       <div className="grid gap-3 sm:grid-cols-2">
         {URDU_CHALLENGES.map((c, i) => {
           const Icon = ICONS[c.icon];

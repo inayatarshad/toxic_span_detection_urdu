@@ -1,5 +1,5 @@
 import React from "react";
-import { Section, Reveal, Pill, Source } from "./ui";
+import { Section, Reveal, Pill, Source, Nastaliq } from "./ui";
 
 export default function FutureWork({ items }) {
   return (
@@ -10,6 +10,11 @@ export default function FutureWork({ items }) {
       title="Where this goes next"
       lead="The directions the authors set out, in the priority order they gave them. Each is tied to the specific result that motivates it. Nothing here is speculation added after the fact."
     >
+            {/* مستقبل, "future" */}
+      <Nastaliq className={"-right-10 top-8 text-forest/[0.05] sm:-right-2"} size="clamp(7rem, 15vw, 15rem)">
+        مستقبل
+      </Nastaliq>
+
       <ol className="space-y-4">
         {items.map((f, i) => (
           <Reveal key={f.title} delay={i * 70}>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Database, FileText, AudioLines, Scale, ExternalLink, Info, Mail } from "lucide-react";
 import { Section, Reveal, Callout, Pill, GithubMark, n } from "./ui";
+import Logo from "./Logo";
 import { LINKS, HUMAN_AUDIO, URTOX_MM } from "../data/research";
 import stats from "../data/stats.json";
 
@@ -76,6 +77,12 @@ export default function Access() {
       title="Getting the data"
       lead="Every resource associated with this work, with its actual availability. Where licensing is not stated by the authors, that is said plainly rather than assumed."
     >
+      <Logo
+        tinted
+        size={420}
+        className="pointer-events-none absolute -right-24 top-24 select-none text-forest/[0.07] lg:-right-10"
+      />
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {RESOURCES.map((r, i) => {
           const Icon = r.icon;

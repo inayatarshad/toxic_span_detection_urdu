@@ -63,24 +63,27 @@ export function useInView({ threshold = 0.15, rootMargin = "0px 0px -8% 0px" } =
       observer.observe(node);
     }
 
+    let poll;
     function cleanup() {
       if (observer) observer.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
+      if (poll) clearInterval(poll);
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
     check();
 
-    // Last resort. If neither the observer nor scroll events ever fire, reveal
-    // anyway rather than leaving the section permanently blank. Off-screen
-    // elements transition invisibly, so this costs nothing when unused.
-    const failsafe = setTimeout(show, 4000);
+    // Low-frequency geometry poll. This covers the case where the observer and
+    // scroll events are both dead, without the blind timeout an earlier version
+    // used: that fired while the element was still far below the fold, so the
+    // animation had already finished by the time it was scrolled to.
+    poll = setInterval(check, 700);
 
     return () => {
-      clearTimeout(failsafe);
+      clearInterval(poll);
       cleanup();
     };
   }, [threshold, rootMargin]);
@@ -150,6 +153,78 @@ export function CountUp({ value, decimals = 0, duration = 1400, prefix = "", suf
   );
 }
 
+/**
+ * Kinetic typography: sets a line word by word as it is reached.
+ *
+ * Each word carries its own delay so the phrase assembles rather than fading
+ * in as a block. The text is real text in the DOM throughout, so it stays
+ * selectable and readable to assistive tech; only the transform is staged.
+ */
+export function Kinetic({
+  children,
+  as: Tag = "span",
+  className = "",
+  delay = 0,
+  stagger = 55,
+  from = "up",
+}) {
+  const [ref, inView] = useInView({ threshold: 0.2 });
+  const words = String(children).split(" ");
+
+  const offset = {
+    up: "translateY(0.5em)",
+    down: "translateY(-0.4em)",
+    scale: "scale(0.94)",
+  }[from];
+
+  return (
+    <Tag ref={ref} className={className}>
+      {words.map((word, i) => (
+        <span key={`${word}-${i}`} className="inline-block overflow-hidden align-bottom">
+          <span
+            className="inline-block will-change-transform"
+            style={{
+              opacity: inView ? 1 : 0,
+              transform: inView ? "none" : offset,
+              filter: inView ? "blur(0)" : "blur(3px)",
+              transition:
+                "opacity 620ms cubic-bezier(0.16,1,0.3,1), transform 620ms cubic-bezier(0.16,1,0.3,1), filter 620ms ease-out",
+              transitionDelay: `${delay + i * stagger}ms`,
+            }}
+          >
+            {word}
+          </span>
+          {i < words.length - 1 && " "}
+        </span>
+      ))}
+    </Tag>
+  );
+}
+
+/**
+ * Decorative Nastaliq set large and faint, used to give typographically thin
+ * sections some presence. Always aria-hidden: it is texture, not content.
+ */
+export function Nastaliq({ children, className = "", size = "18rem", drift = true }) {
+  const [ref, inView] = useInView({ threshold: 0.05 });
+  return (
+    <span
+      ref={ref}
+      aria-hidden="true"
+      className={`pointer-events-none absolute select-none font-urdu leading-none ${className}`}
+      style={{
+        fontSize: size,
+        direction: "rtl",
+        opacity: inView ? 1 : 0,
+        transform: inView || !drift ? "translateX(0)" : "translateX(1.5rem)",
+        transition: "opacity 1400ms ease-out, transform 1600ms cubic-bezier(0.16,1,0.3,1)",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
 /* ----------------------------------------------------------------- layout */
 
 export function Section({
@@ -192,13 +267,13 @@ export function Section({
               </Reveal>
             )}
             {title && (
-              <Reveal delay={60}>
-                <h2
-                  className={`mt-3 text-3xl leading-tight sm:text-4xl ${dark ? "!text-cream" : ""}`}
-                >
-                  {title}
-                </h2>
-              </Reveal>
+              <Kinetic
+                as="h2"
+                delay={60}
+                className={`mt-3 text-3xl leading-tight sm:text-4xl ${dark ? "!text-cream" : ""}`}
+              >
+                {title}
+              </Kinetic>
             )}
             {lead && (
               <Reveal delay={120}>
@@ -389,18 +464,28 @@ export const n = (v) => fmt.format(v);
 /** Horizontal bars, filling from zero the first time they are seen. */
 export function BarChart({ data, max, unit = "", tone = "forest", showValue = true }) {
   const [ref, inView] = useInView({ threshold: 0.25 });
+  const [hover, setHover] = useState(null);
   const peak = max ?? Math.max(...data.map((d) => d.value));
   const tones = { forest: "bg-forest", merlot: "bg-merlot-mid", mixed: null };
 
   return (
-    <ul ref={ref} className="space-y-3">
+    <ul ref={ref} className="space-y-3" onMouseLeave={() => setHover(null)}>
       {data.map((d, i) => (
-        <li key={d.label} className="group">
+        <li
+          key={d.label}
+          className="group transition-opacity duration-200"
+          onMouseEnter={() => setHover(i)}
+          style={{ opacity: hover === null || hover === i ? 1 : 0.45 }}
+        >
           <div className="flex items-baseline justify-between gap-4 text-sm">
             <span className="font-medium text-forest-deep">{d.label}</span>
             {showValue && (
               <span className="shrink-0 font-mono text-xs tabular-nums text-forest-mid">
-                {typeof d.display === "string" ? d.display : n(d.value)}
+                {typeof d.display === "string" ? (
+                  d.display
+                ) : (
+                  <CountUp value={d.value} duration={1000} />
+                )}
                 {unit}
               </span>
             )}
@@ -518,7 +603,7 @@ export function Histogram({ data, height = 150, unit = "", tone = "#3A4E41" }) {
       <div className="flex items-stretch gap-1.5" style={{ height }}>
         {data.map((d, i) => (
           <div key={d.label} className="group flex h-full flex-1 flex-col items-center justify-end">
-            <span className="mb-1 font-mono text-[0.65rem] tabular-nums text-forest-soft opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            <span className="mb-1 font-mono text-[0.65rem] tabular-nums text-forest-soft opacity-0 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:opacity-100">
               {n(d.value)}
             </span>
             <div
