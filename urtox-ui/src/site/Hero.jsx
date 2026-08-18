@@ -2,8 +2,7 @@ import React from "react";
 import { ArrowUpRight, Database, FileText, Quote, Compass, Zap } from "lucide-react";
 import stats from "../data/stats.json";
 import { LINKS, AGREEMENT, INSTITUTION } from "../data/research";
-import { GithubMark, n } from "./ui";
-import Logo from "./Logo";
+import { GithubMark, Kinetic, Nastaliq, n } from "./ui";
 
 const toxic = stats.labels.find((l) => l.key === "toxic").count;
 
@@ -27,20 +26,24 @@ const CTAS = [
 export default function Hero() {
   return (
     <div id="top" className="relative overflow-hidden bg-ivory">
-      {/* oversized mark used as a watermark, decorative only */}
-      <Logo
-        tinted
-        size={460}
-        className="pointer-events-none absolute -right-28 -top-10 select-none text-sand/45 sm:-right-20 lg:-right-6"
-      />
+      {/* Nastaliq sets the language of the work before a word of English is read */}
+      <Nastaliq
+        className="-right-6 top-8 text-sand/50 sm:-right-2 lg:right-4"
+        size="clamp(9rem, 20vw, 20rem)"
+      >
+        اردو
+      </Nastaliq>
 
       <div className="relative mx-auto max-w-6xl px-5 pb-20 pt-14 sm:px-8 sm:pb-28 sm:pt-20">
         <p className="eyebrow">Open research resource · PIEAS, Islamabad</p>
 
         <h1 className="mt-5 max-w-3xl text-[2.6rem] font-medium leading-[1.06] tracking-tight sm:text-6xl">
-          Urdu Toxic
-          <br />
-          Span Dataset
+          <Kinetic as="span" className="block" stagger={70}>
+            Urdu Toxic
+          </Kinetic>
+          <Kinetic as="span" className="block" delay={180} stagger={70}>
+            Span Dataset
+          </Kinetic>
         </h1>
 
         <p className="mt-7 max-w-2xl text-lg leading-relaxed text-forest-mid sm:text-xl">

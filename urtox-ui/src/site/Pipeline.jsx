@@ -9,7 +9,7 @@ import {
   BarChart4,
   AudioLines,
 } from "lucide-react";
-import { Section, Source, useInView } from "./ui";
+import { Section, Source, useInView, Nastaliq } from "./ui";
 
 const STEPS = [
   {
@@ -99,6 +99,11 @@ export default function Pipeline() {
       title="From collection to multimodal evaluation"
       lead="The sequence of steps the two papers actually followed, with the figure attached to each stage."
     >
+            {/* طریقہ, "method" */}
+      <Nastaliq className={"-right-6 top-12 text-forest/[0.055] sm:right-0"} size="clamp(7rem, 15vw, 15rem)">
+        طریقہ
+      </Nastaliq>
+
       <ol ref={spineRef} className="relative space-y-2">
         {/* spine, drawing itself downward as the section is reached */}
         <div
