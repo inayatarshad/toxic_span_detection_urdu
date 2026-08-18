@@ -1,3 +1,85 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* clears the sticky header when jumping to an anchor */
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    @apply bg-ivory text-forest font-sans antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif text-forest-deep;
+    font-variation-settings: "SOFT" 0, "WONK" 0;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    @apply bg-sand text-forest-deep;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-merlot-mid ring-offset-2 ring-offset-ivory;
+  }
+}
+
+@layer components {
+  /* Urdu is rendered right-to-left in Nastaliq, which needs extra line box
+     height or the descenders of one line collide with the next. */
+  .urdu {
+    @apply font-urdu;
+    direction: rtl;
+    text-align: right;
+    unicode-bidi: isolate;
+    line-height: 2.35;
+  }
+
+  .urdu-inline {
+    @apply font-urdu;
+    direction: rtl;
+    unicode-bidi: isolate;
+  }
+
+  .rule {
+    @apply border-t border-sand-deep/60;
+  }
+
+  .eyebrow {
+    @apply font-sans text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-forest-soft;
+  }
+
+  .card {
+    @apply rounded-lg border border-sand-deep/60 bg-white/70 backdrop-blur-[1px];
+  }
+
+  .link-underline {
+    @apply underline decoration-sand-deep decoration-1 underline-offset-4 transition-colors hover:decoration-merlot-mid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
