@@ -1,0 +1,309 @@
+{
+  "generatedFrom": "URTOX_v2.csv",
+  "records": 14337,
+  "columns": [
+    "id",
+    "text",
+    "label",
+    "sub_label",
+    "toxic_spans",
+    "tokens",
+    "toxic_list",
+    "BIO_tags"
+  ],
+  "labels": [
+    {
+      "key": "toxic",
+      "count": 7751
+    },
+    {
+      "key": "non_toxic",
+      "count": 6586
+    }
+  ],
+  "subLabels": [
+    {
+      "key": "normal",
+      "count": 6586
+    },
+    {
+      "key": "offensive",
+      "count": 5347
+    },
+    {
+      "key": "hate",
+      "count": 1258
+    },
+    {
+      "key": "insult",
+      "count": 1047
+    },
+    {
+      "key": "slur",
+      "count": 85
+    },
+    {
+      "key": "threat",
+      "count": 14
+    }
+  ],
+  "bio": [
+    {
+      "key": "O",
+      "count": 398846
+    },
+    {
+      "key": "B-Toxic",
+      "count": 9885
+    },
+    {
+      "key": "I-Toxic",
+      "count": 7581
+    }
+  ],
+  "totalTokens": 416312,
+  "totalSpans": 9885,
+  "meanSpanTokens": 1.77,
+  "spanLengthHist": [
+    {
+      "length": 1,
+      "count": 5341
+    },
+    {
+      "length": 2,
+      "count": 2855
+    },
+    {
+      "length": 3,
+      "count": 1072
+    },
+    {
+      "length": 4,
+      "count": 337
+    },
+    {
+      "length": 5,
+      "count": 128
+    },
+    {
+      "length": 6,
+      "count": 72
+    },
+    {
+      "length": 7,
+      "count": 29
+    },
+    {
+      "length": 8,
+      "count": 17
+    },
+    {
+      "length": 9,
+      "count": 34,
+      "plus": true
+    }
+  ],
+  "spansPerRecord": [
+    {
+      "spans": 0,
+      "count": 8039
+    },
+    {
+      "spans": 1,
+      "count": 4119
+    },
+    {
+      "spans": 2,
+      "count": 1433
+    },
+    {
+      "spans": 3,
+      "count": 444
+    },
+    {
+      "spans": 4,
+      "count": 149
+    },
+    {
+      "spans": 5,
+      "count": 65
+    },
+    {
+      "spans": 6,
+      "count": 88,
+      "plus": true
+    }
+  ],
+  "tokenLength": {
+    "min": 1,
+    "max": 408,
+    "mean": 29.04,
+    "median": 20
+  },
+  "charLength": {
+    "min": 2,
+    "max": 1874,
+    "mean": 126.68,
+    "median": 90
+  },
+  "tokenBuckets": [
+    {
+      "key": "1-10",
+      "count": 3411
+    },
+    {
+      "key": "11-20",
+      "count": 3868
+    },
+    {
+      "key": "21-30",
+      "count": 2616
+    },
+    {
+      "key": "31-50",
+      "count": 2414
+    },
+    {
+      "key": "51-100",
+      "count": 1582
+    },
+    {
+      "key": "100+",
+      "count": 446
+    }
+  ],
+  "distinctToxicPhrases": 3551,
+  "topToxicPhrases": [
+    {
+      "phrase": "بیوقوف",
+      "count": 383
+    },
+    {
+      "phrase": "جاہل",
+      "count": 137
+    },
+    {
+      "phrase": "پاگل",
+      "count": 80
+    },
+    {
+      "phrase": "بکواس",
+      "count": 76
+    },
+    {
+      "phrase": "گھٹیا",
+      "count": 62
+    },
+    {
+      "phrase": "جہالت",
+      "count": 53
+    },
+    {
+      "phrase": "بے غیرت",
+      "count": 48
+    },
+    {
+      "phrase": "بدمعاش",
+      "count": 40
+    },
+    {
+      "phrase": "حماقت",
+      "count": 39
+    },
+    {
+      "phrase": "منافق",
+      "count": 39
+    },
+    {
+      "phrase": "بیکار",
+      "count": 38
+    },
+    {
+      "phrase": "کنجر",
+      "count": 37
+    },
+    {
+      "phrase": "بے وقوف",
+      "count": 36
+    },
+    {
+      "phrase": "ننگا",
+      "count": 36
+    },
+    {
+      "phrase": "کتا",
+      "count": 29
+    },
+    {
+      "phrase": "مضحکہ خیز",
+      "count": 29
+    },
+    {
+      "phrase": "بغیرت",
+      "count": 28
+    },
+    {
+      "phrase": "جھوٹا",
+      "count": 27
+    },
+    {
+      "phrase": "گونگا",
+      "count": 24
+    },
+    {
+      "phrase": "چور",
+      "count": 24
+    },
+    {
+      "phrase": "جعلی",
+      "count": 23
+    },
+    {
+      "phrase": "لعنتی",
+      "count": 22
+    },
+    {
+      "phrase": "کمینے",
+      "count": 21
+    },
+    {
+      "phrase": "احمق",
+      "count": 20
+    }
+  ],
+  "scriptFeatures": {
+    "latinRun": 374,
+    "digits": 1575,
+    "emoji": 135
+  },
+  "quality": {
+    "toxicWithoutSpan": 2177,
+    "nonToxicWithSpan": 724,
+    "tokenTagLengthMismatch": 3,
+    "toxicListPopulated": 4003,
+    "renderableRecords": 14334
+  },
+  "audio": {
+    "rows": 14337,
+    "columns": [
+      "id",
+      "text",
+      "label",
+      "sub_label",
+      "toxic_spans",
+      "tokens",
+      "toxic_list",
+      "BIO_tags",
+      "audio_path",
+      "transcription",
+      "new_tokens",
+      "new_BIO_tags",
+      "toxic_preserved"
+    ]
+  },
+  "sample": {
+    "size": 2011,
+    "seed": 42,
+    "strategy": "stratified by sub_label"
+  }
+}
