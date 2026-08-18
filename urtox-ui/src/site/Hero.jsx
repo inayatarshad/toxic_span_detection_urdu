@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowUpRight, Database, FileText, Quote, Compass } from "lucide-react";
+import { ArrowUpRight, Database, FileText, Quote, Compass, Zap } from "lucide-react";
 import stats from "../data/stats.json";
 import { LINKS, AGREEMENT, INSTITUTION } from "../data/research";
 import { GithubMark, n } from "./ui";
@@ -16,7 +16,8 @@ const FACTS = [
 ];
 
 const CTAS = [
-  { href: "#explore", label: "Explore dataset", icon: Compass, primary: true },
+  { href: "#/detector", label: "Try the live detector", icon: Zap, primary: true },
+  { href: "#explore", label: "Explore dataset", icon: Compass },
   { href: LINKS.dataset, label: "Download dataset", icon: Database, external: true },
   { href: LINKS.arxiv, label: "Read the research", icon: FileText, external: true },
   { href: LINKS.github, label: "View on GitHub", icon: GithubMark, external: true },
