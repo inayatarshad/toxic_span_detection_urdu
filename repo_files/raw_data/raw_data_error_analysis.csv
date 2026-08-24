@@ -1,0 +1,6 @@
+error_type,share_of_errors_pct,example_note,sample_size
+Boundary errors,34,"predicted 'stupid' instead of 'extremely stupid person'",500
+Context-dependent toxicity,28,"sarcasm, e.g. 'Great job ruining everything'",500
+Code-switched spans,18,"Urdu-English boundary, e.g. 'tu bahut stupid hai'",500
+Implicit toxicity,12,"'tum jaahil ho' - culturally offensive, no explicit slur",500
+Multi-span posts,8,"disjoint toxic spans, some missed",500

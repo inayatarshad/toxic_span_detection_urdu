@@ -1,0 +1,13 @@
+comparison,test,n,df,statistic_t,p_value,delta_f1_pct,alpha,significant
+MUTEX vs BiLSTM-CRF,paired two-sided t-test (5 seeds),5,4,5.23,0.0006,4.0,0.05,yes
+MUTEX vs mBERT,paired two-sided t-test (5 seeds),5,4,5.19,0.0007,4.0,0.05,yes
+MUTEX vs XLM-RoBERTa (no CRF),paired two-sided t-test (5 seeds),5,4,2.87,0.023,1.0,0.05,yes
+Ablation: full vs w/o Unicode Norm.,paired t-test (5 CV folds),5,4,,0.007,-1.8,0.05,yes
+Ablation: full vs w/o Diacritic Handling,paired t-test (5 CV folds),5,4,,0.042,-1.0,0.05,yes
+Ablation: full vs w/o Roman Urdu Conv.,paired t-test (5 CV folds),5,4,,0.001,-3.7,0.05,yes
+Ablation: full vs w/o URL/Emoji Removal,paired t-test (5 CV folds),5,4,,0.223,-0.5,0.05,no
+Ablation: full vs w/o Deduplication,paired t-test (5 CV folds),5,4,,0.634,-0.2,0.05,no
+Ablation: full vs No Preprocessing,paired t-test (5 CV folds),5,4,,0.001,-6.2,0.05,yes
+Learning curve: 40% vs 60% data,paired t-test,5,4,,0.003,3.3,0.05,yes
+Learning curve: 60% vs 80% data,paired t-test,5,4,,0.018,1.8,0.05,yes
+Learning curve: 80% vs 100% data,paired t-test,5,4,,0.156,0.7,0.05,no

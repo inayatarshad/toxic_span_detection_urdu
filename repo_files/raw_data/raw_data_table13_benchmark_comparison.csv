@@ -1,0 +1,8 @@
+system,language,eval_metric,f1_pct,dataset_size
+S-NLP (1st SemEval-2021 T5),English,Char-level F1,70.8,10629
+NLRG (2nd),English,Char-level F1,70.8,10629
+IITK (3rd),English,Char-level F1,70.1,10629
+SemEval Baseline,English,Char-level F1,65.9,10629
+XLM-R+CRF (MUTEX),Urdu,Token-level F1,60.0,14342
+mBERT,Urdu,Token-level F1,56.0,14342
+BiLSTM-CRF,Urdu,Token-level F1,55.6,14342
