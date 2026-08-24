@@ -215,19 +215,27 @@ Random seeds **42, 123, 456, 789, 1011** are set at the top of each notebook; al
 
 ### 7.1 Raw evaluation outputs (`raw_data/`)
 
+Column definitions for every file below are given in `raw_data/00_LEGENDS.md`.
+
 | File | Contents |
 |---|---|
-| `raw_data_table4_model_comparison.csv` | Per-seed token-level P/R/F1 for BiLSTM-CRF, mBERT, XLM-R, XLM-R+CRF |
-| `raw_data_table5_category_performance.csv` | Per-toxicity-category F1 and mean span length |
-| `raw_data_table6_7_8_domain_results.csv` | Domain-specific, multi- vs single-domain, and cross-domain transfer F1 |
+| `raw_data_table4.csv` | Per-seed token-level P/R/F1 for BiLSTM-CRF, mBERT, XLM-R, XLM-R+CRF |
+| `raw_data_table5.csv` | Per-toxicity-category F1 and mean span length |
+| `raw_data_table6_7_8_domain.csv` | Domain-specific, multi- vs single-domain, and cross-domain transfer F1 |
 | `raw_data_table9_domain_bias.csv` | Script / code-switching / formality bias analysis |
 | `raw_data_table10_learning_curve.csv` | F1 vs training-set size with *p*-values |
 | `raw_data_table11_preprocessing_ablation.csv` | 5-fold ablation of preprocessing components with 95% CIs |
-| `raw_data_table12_supervision_comparison.csv` | Supervised vs weakly-supervised (ARE, attention) comparison |
-| `raw_data_test_predictions.csv` | Token-level gold vs predicted BIO labels for all 1,434 test posts |
+| `raw_data_table12_supervision.csv` | Supervised vs weakly-supervised (ARE, attention) comparison |
+| `raw_data_table13_benchmark_comparison.csv` | Comparison against the SemEval-2021 Task 5 English benchmark |
+| `raw_data_error_analysis.csv` | Error categories from the manual review of sampled test predictions |
 | `raw_data_statistical_tests.csv` | Paired *t*-test statistics (*t*, df, *p*, Δ) for every comparison reported |
 
 These are the files referenced as **raw data** in the manuscript's *Data Availability* statement.
+
+**Generated on demand.** `raw_data/raw_data_test_predictions.csv`, the token-level gold
+versus predicted BIO labels for the held-out test posts, is not committed because it is
+reproduced directly from the trained model. Run `python export_raw_results.py` to write it,
+along with `raw_data_table4.csv` and `raw_data_statistical_tests.csv`, into `raw_data/`.
 
 ---
 
