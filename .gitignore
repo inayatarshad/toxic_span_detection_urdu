@@ -4,3 +4,13 @@ __pycache__/
 hf-space-api/artifacts/
 hf-space-api-deploy/
 hf-space-api-hf/
+
+# local editor/agent config
+.claude/
+
+# working artefacts kept out of the released repository
+repo_files.zip
+Screenshot*.png
+
+# manuscripts are distributed through the journal, not the repository
+*.pdf
