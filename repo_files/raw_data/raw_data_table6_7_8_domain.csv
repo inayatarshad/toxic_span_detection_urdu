@@ -1,0 +1,20 @@
+analysis,train_domain,test_domain,precision,recall,f1_score
+domain_specific,multi-domain,Social Media,58.5,56.8,0.576
+domain_specific,multi-domain,News,63.2,61.4,0.623
+domain_specific,multi-domain,YouTube,59.8,58.1,0.589
+domain_specific,multi-domain,Overall,61.0,59.0,0.600
+single_vs_multi,Social Media,Social Media,,,0.613
+single_vs_multi,News,News,,,0.593
+single_vs_multi,YouTube,YouTube,,,0.607
+cross_domain,Social Media,Social Media,,,0.613
+cross_domain,Social Media,News,,,0.538
+cross_domain,Social Media,YouTube,,,0.557
+cross_domain,News,Social Media,,,0.524
+cross_domain,News,News,,,0.593
+cross_domain,News,YouTube,,,0.529
+cross_domain,YouTube,Social Media,,,0.548
+cross_domain,YouTube,News,,,0.534
+cross_domain,YouTube,YouTube,,,0.607
+cross_domain,Multi-Domain,Social Media,,,0.576
+cross_domain,Multi-Domain,News,,,0.623
+cross_domain,Multi-Domain,YouTube,,,0.589

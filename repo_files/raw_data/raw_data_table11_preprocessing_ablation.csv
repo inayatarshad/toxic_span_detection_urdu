@@ -1,0 +1,8 @@
+configuration,f1_mean_pct,f1_sd_pct,delta_pct,p_value,ci95_low,ci95_high,cv_folds
+Full Preprocessing,60.0,0.8,,,59.1,60.9,5
+w/o Unicode Normalization,58.2,1.1,-1.8,0.007,-3.1,-0.5,5
+w/o Diacritic Handling,59.0,0.9,-1.0,0.042,-2.0,-0.04,5
+w/o Roman Urdu Conversion,56.3,1.3,-3.7,0.001,-5.3,-2.1,5
+w/o URL/Emoji Removal,59.5,0.7,-0.5,0.223,-1.3,0.3,5
+w/o Deduplication,59.8,0.8,-0.2,0.634,-1.0,0.6,5
+No Preprocessing,53.8,1.9,-6.2,0.001,-8.6,-3.8,5

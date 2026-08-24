@@ -1,0 +1,4 @@
+approach,annotation_level,f1_score
+XLM-R+CRF (Supervised / MUTEX),Span-level,0.600
+ARE (Lei et al.),Sentence-level,0.538
+Attention Analysis,Sentence-level,0.527

@@ -1,0 +1,6 @@
+toxicity_category,samples,f1_score,avg_span_length_tokens
+Hate Speech,2145,0.623,8.2
+Personal Insults,3892,0.615,6.8
+Offensive Language,5124,0.587,7.1
+Profanity,1652,0.641,3.5
+Overall,14342,0.600,7.5

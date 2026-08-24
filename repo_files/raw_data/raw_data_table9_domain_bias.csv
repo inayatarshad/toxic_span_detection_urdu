@@ -1,0 +1,7 @@
+linguistic_factor,condition,f1_score,delta_vs_baseline_0.600
+Script Variation,Pure Urdu (Nastaliq),0.612,0.012
+Script Variation,Roman Urdu,0.580,-0.020
+Code-Switching,Pure Urdu,0.602,0.002
+Code-Switching,Code-Switched (Ur-En),0.586,-0.014
+Formality Level,Formal (News),0.623,0.023
+Formality Level,Informal (Social Media),0.576,-0.024
