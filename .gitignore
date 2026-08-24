@@ -11,3 +11,6 @@ hf-space-api-hf/
 # working artefacts kept out of the released repository
 repo_files.zip
 Screenshot*.png
+
+# manuscripts are distributed through the journal, not the repository
+*.pdf
