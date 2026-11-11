@@ -212,9 +212,12 @@ def main():
         cols = [c for c in P.columns if c.startswith(mname)] if mname != "random" else None
 
         def col(df, metric):
-            if mname == "random":
-                return df[[f"random_{k}_{metric}" for k in range(3)]].mean(1)
-            return df[f"{mname}_{metric}"]
+            try:
+                if mname == "random":
+                    return df[[f"random_{k}_{metric}" for k in range(3)]].mean(1)
+                return df[f"{mname}_{metric}"]
+            except KeyError:
+                return pd.Series(dtype=float)
         summ.append({"method": mname, "n_posts_plausibility": len(P), "AUPRC_mean": col(P, "AP").mean(),
                      "AUPRC_sd": col(P, "AP").std(), "topk_token_F1_mean": col(P, "topkF1").mean(),
                      "n_posts_faithfulness": len(Fa), "comprehensiveness_AOPC_mean": col(Fa, "comp_AOPC").mean(),
@@ -225,6 +228,8 @@ def main():
     tests = []
     for metric, df in [("AP", P), ("topkF1", P), ("comp_AOPC", Fa), ("suff_AOPC", Fa)]:
         for other in ["attention", "random"]:
+            if f"integrated_gradients_{metric}" not in df:
+                continue
             a = df[f"integrated_gradients_{metric}"]
             b = df[[f"random_{k}_{metric}" for k in range(3)]].mean(1) if other == "random" else df[f"{other}_{metric}"]
             try:

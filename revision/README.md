@@ -27,3 +27,18 @@ Design decisions (fixed a priori, not tuned on the test split):
 * No data augmentation is used.
 
 `run_all.sh` is resumable: rerunning skips finished runs.
+
+## Released outputs (`revision/outputs/`)
+
+Produced by `run_all.sh` on Kaggle (2× NVIDIA Tesla T4, 16 GB each; wall time 5.9 h);
+`analyze.py` was then re-run on the same predictions to add exact-span significance tests.
+
+* `results_summary.md`, `results/*.csv` — every table in the revised manuscript
+* `results/per_seed_metrics.csv` — metrics of each individual run
+* `data/split_assignment.csv`, `data/dataset_statistics.json` — the fixed split and dataset statistics
+* `urtox_revision_outputs_full.tar.gz` — everything, including per-post test/validation
+  predictions of all 37 runs (`runs/<model>__<variant>/seed<k>/`)
+* `pipeline_log.txt` — the complete training log
+
+The earlier `raw_data/` folder and `export_raw_results.py` were removed: those files were not
+produced by an executed evaluation and are superseded by the outputs above.

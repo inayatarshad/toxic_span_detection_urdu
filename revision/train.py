@@ -226,9 +226,14 @@ def batches(recs, bs, collate, shuffle, rng):
     idx = list(range(len(recs)))
     if shuffle:
         rng.shuffle(idx)
-    for i in range(0, len(idx), bs):
-        yield collate([recs[j] for j in idx[i:i + bs]])
-
+        chunks = [sorted(idx[i:i + bs * 50], key=lambda j: len(recs[j]["words"])) for i in range(0, len(idx), bs * 50)]
+        bl = [c[i:i + bs] for c in chunks for i in range(0, len(c), bs)]
+        rng.shuffle(bl)
+    else:
+        idx.sort(key=lambda j: len(recs[j]["words"]))
+        bl = [idx[i:i + bs] for i in range(0, len(idx), bs)]
+    for b in bl:
+        yield collate([recs[j] for j in b])
 
 def to_dev(batch, dev):
     return {k: (v.to(dev) if torch.is_tensor(v) else v) for k, v in batch.items()}

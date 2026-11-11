@@ -1,0 +1,895 @@
+### start Wed Nov 11 11:43:41 AM UTC 2026
+python 3.13.16 torch 2.11.0+cu130 transformers 5.20.2 gpus 2
+{
+  "rows_in_csv": 14337,
+  "bio_literal_repaired": 1,
+  "dropped_token_tag_length_mismatch": 2,
+  "rows_parsed": 14335,
+  "dropped_exact_duplicate": 175,
+  "exact_duplicates_with_conflicting_labels": 60,
+  "near_duplicate_pairs_jaccard>=0.80": 157,
+  "posts_in_near_duplicate_groups": 207,
+  "near_duplicate_groups": 86,
+  "tokens_changed_by_normalisation": 3473
+}
+train 11326 span-posts 4977 tags {'O': 0.958, 'B-TOXIC': 0.0237, 'I-TOXIC': 0.0182}
+validation 1417 span-posts 622 tags {'O': 0.9568, 'B-TOXIC': 0.0236, 'I-TOXIC': 0.0196}
+test 1417 span-posts 622 tags {'O': 0.9604, 'B-TOXIC': 0.0231, 'I-TOXIC': 0.0166}
+[gpu1] data: train=11326 val=1417 test=1417 variant=main
+[gpu1] === start xlmr main seed 42
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2367.05it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1] /kaggle/working/repo/revision/train.py:310: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+[gpu1]   scaler = torch.cuda.amp.GradScaler(enabled=amp)
+[gpu1] /kaggle/working/repo/revision/train.py:328: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+[gpu1]   sched.step()
+[gpu1]   [xlmr s42] ep1 loss=0.2415 valF1=0.6499 (132s)
+[gpu1]   [xlmr s42] ep2 loss=0.1231 valF1=0.6787 (265s)
+[gpu1]   [xlmr s42] ep3 loss=0.0978 valF1=0.6675 (398s)
+[gpu1]   [xlmr s42] ep4 loss=0.0751 valF1=0.6835 (529s)
+[gpu1]   [xlmr s42] ep5 loss=0.0595 valF1=0.6908 (662s)
+[gpu1]   [xlmr s42] ep6 loss=0.0453 valF1=0.6796 (794s)
+[gpu1]   [xlmr s42] ep7 loss=0.0332 valF1=0.6816 (925s)
+[gpu1]   [xlmr s42] ep8 loss=0.0268 valF1=0.6767 (1056s)
+[gpu1]   DONE xlmr s42: test token F1=0.7071
+[gpu1] === start xlmr main seed 123
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2218.38it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [xlmr s123] ep1 loss=0.2655 valF1=0.6454 (132s)
+[gpu1]   [xlmr s123] ep2 loss=0.1206 valF1=0.6711 (265s)
+[gpu1]   [xlmr s123] ep3 loss=0.0967 valF1=0.6595 (397s)
+[gpu1]   [xlmr s123] ep4 loss=0.0770 valF1=0.6528 (529s)
+[gpu1]   [xlmr s123] ep5 loss=0.0577 valF1=0.6646 (660s)
+[gpu1]   DONE xlmr s123: test token F1=0.7073
+[gpu1] === start xlmr main seed 456
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2433.39it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [xlmr s456] ep1 loss=0.2606 valF1=0.6427 (132s)
+[gpu1]   [xlmr s456] ep2 loss=0.1225 valF1=0.6547 (264s)
+[gpu1]   [xlmr s456] ep3 loss=0.0947 valF1=0.6624 (397s)
+[gpu1]   [xlmr [gpu0] data: train=11326 val=1417 test=1417 variant=main
+[gpu0] === start xlmr_crf main seed 42
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2293.86it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0] /kaggle/working/repo/revision/train.py:310: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+[gpu0]   scaler = torch.cuda.amp.GradScaler(enabled=amp)
+[gpu0] /kaggle/working/repo/revision/train.py:328: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+[gpu0]   sched.step()
+[gpu0]   [xlmr_crf s42] ep1 loss=4.0931 valF1=0.6313 (151s)
+[gpu0]   [xlmr_crf s42] ep2 loss=1.6403 valF1=0.6576 (301s)
+[gpu0]   [xlmr_crf s42] ep3 loss=1.3031 valF1=0.6525 (452s)
+[gpu0]   [xlmr_crf s42] ep4 loss=1.0655 valF1=0.6624 (602s)
+[gpu0]   [xlmr_crf s42] ep5 loss=0.8425 valF1=0.6735 (753s)
+[gpu0]   [xlmr_crf s42] ep6 loss=0.6464 valF1=0.6656 (904s)
+[gpu0]   [xlmr_crf s42] ep7 loss=0.4924 valF1=0.6610 (1053s)
+[gpu0]   [xlmr_crf s42] ep8 loss=0.3824 valF1=0.6708 (1203s)
+[gpu0]   DONE xlmr_crf s42: test token F1=0.6982
+[gpu0] === start xlmr_crf main seed 123
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2190.01it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   [xlmr_crf s123] ep1 loss=4.7962 valF1=0.6028 (150s)
+[gpu0]   [xlmr_crf s123] ep2 loss=1.6245 valF1=0.6360 (301s)
+[gpu0]   [xlmr_crf s123] ep3 loss=1.3418 valF1=0.6548 (452s)
+[gpu0]   [xlmr_crf s123] ep4 loss=1.0292 valF1=0.6605 (603s)
+[gpu0]   [xlmr_crf s123] ep5 loss=0.8210 valF1=0.6325 (754s)
+[gpu0]   [xlmr_crf s123] ep6 loss=0.6351 valF1=0.6637 (903s)
+[gpu0]   [xlmr_crf s123] ep7 loss=0.4793 valF1=0.6627 (1054s)
+[gpu0]   [xlmr_crf s123] ep8 loss=0.3830 valF1=0.6625 (1203s)
+[gpu0]   [xlmr_crf s123] ep9 loss=0.2889 valF1=0.6588 (1352s)
+[gpu0]   DONE xlmr_crf s123: test token F1=0.6946
+[gpu0] === start xlmr_crf main seed 456
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2194.25it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+s456] ep4 loss=0.0753 valF1=0.6753 (529s)
+[gpu1]   [xlmr s456] ep5 loss=0.0577 valF1=0.6871 (662s)
+[gpu1]   [xlmr s456] ep6 loss=0.0442 valF1=0.6770 (794s)
+[gpu1]   [xlmr s456] ep7 loss=0.0348 valF1=0.6765 (925s)
+[gpu1]   [xlmr s456] ep8 loss=0.0264 valF1=0.6712 (1056s)
+[gpu1]   DONE xlmr s456: test token F1=0.7039
+[gpu1] === start xlmr main seed 789
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2089.31it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [xlmr s789] ep1 loss=0.2655 valF1=0.5066 (132s)
+[gpu1]   [xlmr s789] ep2 loss=0.1223 valF1=0.6813 (264s)
+[gpu1]   [xlmr s789] ep3 loss=0.0962 valF1=0.6720 (396s)
+[gpu1]   [xlmr s789] ep4 loss=0.0746 valF1=0.6862 (528s)
+[gpu1]   [xlmr s789] ep5 loss=0.0587 valF1=0.6942 (660s)
+[gpu1]   [xlmr s789] ep6 loss=0.0437 valF1=0.6891 (793s)
+[gpu1]   [xlmr s789] ep7 loss=0.0344 valF1=0.6817 (924s)
+[gpu1]   [xlmr s789] ep8 loss=0.0266 valF1=0.6848 (1055s)
+[gpu1]   DONE xlmr s789: test token F1=0.7035
+[gpu1] === start xlmr main seed 1011
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2132.14it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [xlmr s1011] ep1 loss=0.2423 valF1=0.6489 (131s)
+[gpu1]   [xlmr s1011] ep2 loss=0.1239 valF1=0.6473 (263s)
+[gpu1]   [xlmr s1011] ep3 loss=0.0965 valF1=0.6486 (395s)
+[gpu1]   [xlmr s1011] ep4 loss=0.0767 valF1=0.6732 (525s)
+[gpu1]   [xlmr s1011] ep5 loss=0.0586 valF1=0.6824 (658s)
+[gpu1]   [xlmr s1011] ep6 loss=0.0454 valF1=0.6634 (790s)
+[gpu1]   [xlmr s1011] ep7 loss=0.0347 valF1=0.6727 (921s)
+[gpu1]   [xlmr s1011] ep8 loss=0.0269 valF1=0.6667 (1052s)
+[gpu1]   DONE xlmr s1011: test token F1=0.6957
+[gpu1] === start mbert main seed 42
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2195.88it/s]
+[gpu1] [transformers] [1mBertModel LOAD REPORT[0m from: bert-base-multilingual-cased
+[gpu1] Key                                        | Status     |  | 
+[gpu1] -------------------------------------------+------------+--+-
+[gpu1] cls.seq_relationship.weight                | UNEXPECTED |  | 
+[gpu1] cls.seq_relationship.bias                  | UNEXPECTED |  | 
+[gpu1] cls.predictions.bias                       | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [mbert s42] ep1 loss=0.2133 valF1=0.5863 (105s)
+[gpu1]   [mbert s42] ep2 loss=0.1240 valF1=0.6342 (209s)
+[gpu1]   [mbert s42] ep3 loss=0.0935 valF1=0.6119 (313s[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   [xlmr_crf s456] ep1 loss=4.3905 valF1=0.5258 (150s)
+[gpu0]   [xlmr_crf s456] ep2 loss=1.6691 valF1=0.6355 (300s)
+[gpu0]   [xlmr_crf s456] ep3 loss=1.3092 valF1=0.6544 (451s)
+[gpu0]   [xlmr_crf s456] ep4 loss=1.0574 valF1=0.6656 (602s)
+[gpu0]   [xlmr_crf s456] ep5 loss=0.8289 valF1=0.6782 (753s)
+[gpu0]   [xlmr_crf s456] ep6 loss=0.6448 valF1=0.6661 (903s)
+[gpu0]   [xlmr_crf s456] ep7 loss=0.4884 valF1=0.6698 (1052s)
+[gpu0]   [xlmr_crf s456] ep8 loss=0.3878 valF1=0.6683 (1202s)
+[gpu0]   DONE xlmr_crf s456: test token F1=0.7033
+[gpu0] === start xlmr_crf main seed 789
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2143.57it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   [xlmr_crf s789] ep1 loss=4.6985 valF1=0.5137 (149s)
+[gpu0]   [xlmr_crf s789] ep2 loss=1.6868 valF1=0.6580 (300s)
+[gpu0]   [xlmr_crf s789] ep3 loss=1.3069 valF1=0.6645 (451s)
+[gpu0]   [xlmr_crf s789] ep4 loss=1.0687 valF1=0.6627 (602s)
+[gpu0]   [xlmr_crf s789] ep5 loss=0.8312 valF1=0.6674 (752s)
+[gpu0]   [xlmr_crf s789] ep6 loss=0.6519 valF1=0.6667 (902s)
+[gpu0]   [xlmr_crf s789] ep7 loss=0.4894 valF1=0.6701 (1051s)
+[gpu0]   [xlmr_crf s789] ep8 loss=0.3962 valF1=0.6611 (1202s)
+[gpu0]   [xlmr_crf s789] ep9 loss=0.3020 valF1=0.6595 (1351s)
+[gpu0]   [xlmr_crf s789] ep10 loss=0.2405 valF1=0.6622 (1500s)
+[gpu0]   DONE xlmr_crf s789: test token F1=0.7072
+[gpu0] === start xlmr_crf main seed 1011
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2413.71it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   [xlmr_crf s1011] ep1 loss=4.5472 valF1=0.6324 (150s)
+[gpu0]   [xlmr_crf s1011] ep2 loss=1.6371 valF1=0.6548 (301s)
+[gpu0]   [xlmr_crf s1011] ep3 loss=1.3021 valF1=0.6816 (452s)
+[gpu0]   [xlmr_crf s1011] ep4 loss=1.0625 valF1=0.6602 (603s)
+[gpu0]   [xlmr_crf s1011] ep5 loss=0.8363 valF1=0.6647 (752s)
+[gpu0]   [xlmr_crf s1011] ep6 loss=0.6438 valF1=0.6496 (901s)
+[gpu0]   DONE xlmr_crf s1011: test token F1=0.7079
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2279.70it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   explained 0/1417
+[gpu)
+[gpu1]   [mbert s42] ep4 loss=0.0670 valF1=0.6183 (416s)
+[gpu1]   [mbert s42] ep5 loss=0.0478 valF1=0.6315 (520s)
+[gpu1]   DONE mbert s42: test token F1=0.6585
+[gpu1] === start mbert main seed 123
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2171.96it/s]
+[gpu1] [transformers] [1mBertModel LOAD REPORT[0m from: bert-base-multilingual-cased
+[gpu1] Key                                        | Status     |  | 
+[gpu1] -------------------------------------------+------------+--+-
+[gpu1] cls.seq_relationship.weight                | UNEXPECTED |  | 
+[gpu1] cls.seq_relationship.bias                  | UNEXPECTED |  | 
+[gpu1] cls.predictions.bias                       | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [mbert s123] ep1 loss=0.2171 valF1=0.5841 (105s)
+[gpu1]   [mbert s123] ep2 loss=0.1234 valF1=0.6256 (209s)
+[gpu1]   [mbert s123] ep3 loss=0.0928 valF1=0.6307 (314s)
+[gpu1]   [mbert s123] ep4 loss=0.0674 valF1=0.6245 (418s)
+[gpu1]   [mbert s123] ep5 loss=0.0492 valF1=0.6343 (522s)
+[gpu1]   [mbert s123] ep6 loss=0.0364 valF1=0.6410 (626s)
+[gpu1]   [mbert s123] ep7 loss=0.0253 valF1=0.6337 (731s)
+[gpu1]   [mbert s123] ep8 loss=0.0173 valF1=0.6406 (835s)
+[gpu1]   [mbert s123] ep9 loss=0.0137 valF1=0.6391 (938s)
+[gpu1]   DONE mbert s123: test token F1=0.6618
+[gpu1] === start mbert main seed 456
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2186.48it/s]
+[gpu1] [transformers] [1mBertModel LOAD REPORT[0m from: bert-base-multilingual-cased
+[gpu1] Key                                        | Status     |  | 
+[gpu1] -------------------------------------------+------------+--+-
+[gpu1] cls.seq_relationship.weight                | UNEXPECTED |  | 
+[gpu1] cls.seq_relationship.bias                  | UNEXPECTED |  | 
+[gpu1] cls.predictions.bias                       | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [mbert s456] ep1 loss=0.2180 valF1=0.6128 (104s)
+[gpu1]   [mbert s456] ep2 loss=0.1248 valF1=0.6255 (208s)
+[gpu1]   [mbert s456] ep3 loss=0.0921 valF1=0.6250 (311s)
+[gpu1]   [mbert s456] ep4 loss=0.0676 valF1=0.6315 (415s)
+[gpu1]   [mbert s456] ep5 loss=0.0478 valF1=0.6312 (519s)
+[gpu1]   [mbert s456] ep6 loss=0.0343 valF1=0.6333 (622s)
+[gpu1]   [mbert s456] ep7 loss=0.0263 valF1=0.6272 (726s)
+[gpu1]   [mbert s456] ep8 loss=0.0172 valF1=0.6302 (829s)
+[gpu1]   [mbert s456] ep9 loss=0.0124 valF1=0.6326 (933s)
+[gpu1]   DONE mbert s456: test token F1=0.6594
+[gpu1] === start mbert main seed 789
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2250.24it/s]
+[gpu1] [transformers] [1mBertModel LOAD REPORT[0m from: bert-base-multilingual-cased
+[gpu1] Key                                        | Status     |  | 
+[gpu1] -------------------------------------------+------------+--+-
+[gpu1] cls.seq_relationship.weight                | UNEXPECTED |  | 
+[gpu1] cls.seq_relationship.bias                  | UNEXPECTED |  | 
+[gpu1] cls.predictions.bias                       | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+[gpu1] cls.predictions0]   explained 100/1417
+[gpu0]   explained 200/1417
+[gpu0]   explained 300/1417
+[gpu0]   explained 400/1417
+[gpu0]   explained 500/1417
+[gpu0]   explained 600/1417
+[gpu0]   explained 700/1417
+[gpu0]   explained 800/1417
+[gpu0]   explained 1000/1417
+[gpu0]   explained 1100/1417
+[gpu0]   explained 1300/1417
+[gpu0]   explained 1400/1417
+[gpu0]                  method  n_posts_plausibility  AUPRC_mean  AUPRC_sd  topk_token_F1_mean  n_posts_faithfulness  comprehensiveness_AOPC_mean  sufficiency_AOPC_mean
+[gpu0] 0  integrated_gradients                   622    0.420594  0.337920            0.323709                  1221                     0.092778               0.047308
+[gpu0] 1             attention                   622    0.439129  0.306528            0.304104                  1221                     0.063954               0.122789
+[gpu0] 2                random                   622    0.279412  0.237104            0.170418                  1221                     0.032756               0.153298
+[gpu0] data: train=11326 val=1417 test=1417 variant=no_preprocessing
+[gpu0] === start xlmr_crf no_preprocessing seed 42
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2433.15it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0] /kaggle/working/repo/revision/train.py:310: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+[gpu0]   scaler = torch.cuda.amp.GradScaler(enabled=amp)
+[gpu0] /kaggle/working/repo/revision/train.py:328: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+[gpu0]   sched.step()
+[gpu0]   [xlmr_crf s42] ep1 loss=3.9722 valF1=0.6437 (152s)
+[gpu0]   [xlmr_crf s42] ep2 loss=1.6458 valF1=0.6631 (304s)
+[gpu0]   [xlmr_crf s42] ep3 loss=1.2971 valF1=0.6580 (456s)
+[gpu0]   [xlmr_crf s42] ep4 loss=1.0415 valF1=0.6813 (606s)
+[gpu0]   [xlmr_crf s42] ep5 loss=0.8360 valF1=0.6780 (758s)
+[gpu0]   [xlmr_crf s42] ep6 loss=0.6486 valF1=0.6844 (909s)
+[gpu0]   [xlmr_crf s42] ep7 loss=0.5120 valF1=0.6714 (1060s)
+[gpu0]   [xlmr_crf s42] ep8 loss=0.3766 valF1=0.6673 (1210s)
+[gpu0]   [xlmr_crf s42] ep9 loss=0.2895 valF1=0.6762 (1361s)
+[gpu0]   DONE xlmr_crf s42: test token F1=0.7102
+[gpu0] === start xlmr_crf no_preprocessing seed 123
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2161.50it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   [xlmr_crf s123] ep1 loss=4.8159 valF1=0.5686 (151s)
+[gpu0]   [xlmr_crf s123] ep2 loss=1.6106 valF1=0.6547 (304s)
+[gpu0]   [xlmr_crf.transform.LayerNorm.bias   | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [mbert s789] ep1 loss=0.2134 valF1=0.5012 (104s)
+[gpu1]   [mbert s789] ep2 loss=0.1227 valF1=0.5965 (208s)
+[gpu1]   [mbert s789] ep3 loss=0.0925 valF1=0.6219 (312s)
+[gpu1]   [mbert s789] ep4 loss=0.0690 valF1=0.6415 (416s)
+[gpu1]   [mbert s789] ep5 loss=0.0496 valF1=0.6265 (521s)
+[gpu1]   [mbert s789] ep6 loss=0.0342 valF1=0.6319 (624s)
+[gpu1]   [mbert s789] ep7 loss=0.0249 valF1=0.6212 (728s)
+[gpu1]   DONE mbert s789: test token F1=0.6633
+[gpu1] === start mbert main seed 1011
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2187.49it/s]
+[gpu1] [transformers] [1mBertModel LOAD REPORT[0m from: bert-base-multilingual-cased
+[gpu1] Key                                        | Status     |  | 
+[gpu1] -------------------------------------------+------------+--+-
+[gpu1] cls.seq_relationship.weight                | UNEXPECTED |  | 
+[gpu1] cls.seq_relationship.bias                  | UNEXPECTED |  | 
+[gpu1] cls.predictions.bias                       | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+[gpu1] cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [mbert s1011] ep1 loss=0.2060 valF1=0.6011 (104s)
+[gpu1]   [mbert s1011] ep2 loss=0.1237 valF1=0.6028 (208s)
+[gpu1]   [mbert s1011] ep3 loss=0.0924 valF1=0.6157 (312s)
+[gpu1]   [mbert s1011] ep4 loss=0.0684 valF1=0.6204 (417s)
+[gpu1]   [mbert s1011] ep5 loss=0.0486 valF1=0.6379 (521s)
+[gpu1]   [mbert s1011] ep6 loss=0.0342 valF1=0.6329 (625s)
+[gpu1]   [mbert s1011] ep7 loss=0.0247 valF1=0.6283 (729s)
+[gpu1]   [mbert s1011] ep8 loss=0.0178 valF1=0.6305 (833s)
+[gpu1]   DONE mbert s1011: test token F1=0.6570
+[gpu1] === start bilstm_crf main seed 42
+[gpu1]   [bilstm_crf s42] ep1 loss=3.3943 valF1=0.4542 (18s)
+[gpu1]   [bilstm_crf s42] ep2 loss=2.2723 valF1=0.5207 (35s)
+[gpu1]   [bilstm_crf s42] ep3 loss=2.0010 valF1=0.5553 (52s)
+[gpu1]   [bilstm_crf s42] ep4 loss=1.8245 valF1=0.5759 (69s)
+[gpu1]   [bilstm_crf s42] ep5 loss=1.6963 valF1=0.5890 (86s)
+[gpu1]   [bilstm_crf s42] ep6 loss=1.5841 valF1=0.5892 (103s)
+[gpu1]   [bilstm_crf s42] ep7 loss=1.4994 valF1=0.5937 (121s)
+[gpu1]   [bilstm_crf s42] ep8 loss=1.4027 valF1=0.5923 (138s)
+[gpu1]   [bilstm_crf s42] ep9 loss=1.3354 valF1=0.5834 (156s)
+[gpu1]   [bilstm_crf s42] ep10 loss=1.2641 valF1=0.5897 (173s)
+[gpu1]   [bilstm_crf s42] ep11 loss=1.2080 valF1=0.5828 (190s)
+[gpu1]   [bilstm_crf s42] ep12 loss=1.1672 valF1=0.5883 (207s)
+[gpu1]   DONE bilstm_crf s42: test token F1=0.6315
+[gpu1] === start bilstm_crf main seed 123
+[gpu1]   [bilstm_crf s123] ep1 loss=3.3067 valF1=0.4606 (17s)
+[gpu1]   [bilstm_crf s123] ep2 loss=2.3083 valF1=0.5559 (35s)
+[gpu1]   [bilstm_crf s123] ep3 loss=2.0094 valF1=0.5588 (52s)
+[gpu1]   [bilstm_crf s123] ep4 loss=1.8416 valF1=0.5860 (69s)
+[gpu1]   [bilstm_crf s123] ep5 loss=1.6983 valF1=0.5915 (87s)
+[gpu1]   [bilstm_crf s123] ep6 loss=1.5759 valF1=0.5724 (104s)
+[gpu1]   [bilstm_crf s123] ep7 loss=1.4881 valF1=0.5799 (121s)
+[gpu1]   [bilstm_crf s123] ep8 loss=1.3885 valF1=0.5727 (138s)
+[gpu1]   [bilstm_crf s123] ep9 loss=1.3387 valF1=0.5602 (155s)
+[gpu1]   [bilstm_crf s123] ep10 loss=1.2617 valF1=0.5801 (172s)
+[gpu1]   DONE bilstm_crf s123: test token F1=0.6191
+[gpu1] === start bilstm_crf main seed 456
+[gpu1]   [bilstm_crf s456] ep1 loss=3.6605 valF1=0.4548 (17s)
+[gpu1]   [bilstm_crf s456] ep2 loss=2.2979 valF1=0.5209 (34s)
+[gpu1]   [bilstm_crf s456] ep3 loss=2.0167 valF1=0.5658 (51s)
+[gpu1]   [bilstm_crf s456] ep4 loss=1.8322 valF1=0.5850 (68s)
+[gpu1]   [bilstm_crf s456] ep5 loss=1.7027 valF1=0.5812 (85s)
+[gpu1]   [bilstm_crf s456] ep6 loss=1.5738 valF1=0.5693 (102s)
+[gpu1]   [bilstm_crf s456] ep7 loss=1.5000 valF1=0.6061 (119s)
+[gpu1]   [bilstm_crf s456] ep8 loss=1.4076 valF1=0.6075 (136s)
+[gpu1]   [bilstm_crf s456] ep9 loss=1.3436 valF1=0.6027 (153s)
+[gpu1]   [bilstm_crf s456] ep10 loss=1.2592 valF1=0.5955 (170s)
+[gpu1]   [bilstm_crf s456] ep11 loss=1.2038 valF1=0.6002 (188s)
+[gpu1]   [bilstm_crf s456] ep12 loss=1.1550 valF1=0.5884 (205s)
+[gpu1]   [bilstm_crf s456] ep13 loss=1.1071 valF1=0.5958 (222s)
+[gpu1]   DONE bilstm_crf s456: test token F1=0.6280
+[gpu1] === start bilstm_crf main seed 789
+[gpu1]   [bilstm_crf s789] ep1 loss=3.4473 valF1=0.4332 (17s)
+[gpu1]   [bilstm_crf s789] ep2 loss=2.3021 valF1=0.5321 (34s)
+[gpu1]   [bilstm_crf s789] ep3 loss=2.0162 valF1=0.5623 (52s)
+[gpu1]   [bilstm_crf s789] ep4 loss=1.8212 valF1=0.5552 (69s)
+[gpu1]   [bilstm_crf s789] ep5 loss=1.7005 valF1=0.5710 (87s)
+[gpu1]   [bilstm_crf s789] ep6 loss=1.5840 valF1=0.5492 (104s)
+[gpu1]   [bilstm_crf s789] ep7 loss=1.4904 valF1=0.5978 (122s)
+[gpu1]   [bilstm_crf s789] ep8 loss=1.4105 valF1=0.5993 (139s)
+[gpu1]   [bilstm_crf s789] ep9 loss=1.3411 valF1=0.5935 (157s)
+[gpu1]   [bilstm_crf s789] ep10 loss=1.2715 valF1=0.5925 (174s)
+[gpu1]   [bilstm_crf s789] ep11 loss=1.2232 valF1=0.5766 (192s)
+[gpu1]   [bilstm_crf s789] ep12 loss=1.1602 valF1=0.5874 (209s)
+[gpu1]   [bilstm_crf s789] ep13 loss=1.1082 valF1=0.5944 (227s)
+[gpu1]   DONE bilstm_crf s789: test token F1=0.6237
+[gpu1] === start bilstm_crf main seed 1011
+[gpu1]   [bilstm_crf s1011] ep1 loss=3.2503 valF1=0.4146 (17s)
+[gpu1]   [bilstm_crf s1011] ep2 loss=2.2857 valF1=0.5181 (35s)
+[gpu1]   [bilstm_crf s1011] ep3 loss=2.0129 valF1=0.5423 (53s)
+[gpu1]   [bilstm_crf s1011] ep4 loss=1.8337 valF1=0.5806 (71s)
+[gpu1]   [bilstm_crf s1011] ep5 loss=1.6924 valF1=0.5952 (88s)
+[gpu1]   [bilstm_crf s1011] ep6 loss=1.5918 valF1=0.5868 (106s)
+[gpu1]   [bilstm_crf s1011] ep7 loss=1.4961 valF1=0.5985 (123s)
+[gpu1]   [bilstm_crf s1011] ep8 loss=1.4216 valF1=0.5882 (140s)
+[gpu1]   [bilstm_crf s1011] ep9 loss=1.3204 valF1=0.6030 (158s)
+[gpu1]   [bilstm_crf s1011] ep10 loss=1.2710 valF1=0.6091 (176s)
+[gpu1]   [bilstm_crf s1011] ep11 loss=1.2036 valF1=0.6060 (195s)
+[gpu1]   [bilstm_crf s1011] ep12 loss=1.1648 valF1=0.6042 (213s)
+[gpu1]   [bilstm_crf s1011] ep13 loss=1.1237 valF1=0.5955 (230s)
+[gpu1]   [bilstm_crf s1011] ep14 loss=1.0763 valF1=0.5886 (247s)
+[gpu1]   [bilstm_crf s1011] ep15 loss=1.0424 valF1=0.5949 (265s)
+[gpu1]   DONE bilstm_crf s1011: test token F1=0.6360
+[gpu1] data: train=2831 val=1417 test=1417 variant=frac0.25
+[gpu1] === start xlmr_crf frac0.25 seed 42
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2166.72it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1] /kaggle/working/repo/revision/train.py:310: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+[gpu1]   scaler = torch.cuda.amp.GradScaler(enabled=amp)
+[gpu1] /kaggle/working/repo/revision/train.py:328: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+[gpu1]   sched.step()
+[gpu1]   [xlmr_crf s42] ep1 loss=6.8282 valF1=0.5753 (40s)
+[gpu1]   [xlmr_crf s42] ep2 loss=1.9153 valF1=0.6077 (81s)
+[gpu1]   [xlmr_crf s42] ep3 loss=1.3948 valF1=0.6180 (121s)
+[gpu1]   [xlmr_crf s42] ep4 loss=1.0658 valF1=0.6379 (161s)
+[gpu1]   [xlmr_crf s42] ep5 loss=0.8106 valF1=0.6410 (202s)
+[gpu1]   [xlmr_crf s42] ep6 loss=0.6665 valF1=0.6356 (242s)
+[gpu1]   [xlmr_crf s42] ep7 loss=0.4672 valF1=0.6257 (281s)
+[gpu1]   [xlmr_crf s42] ep8 loss=0.3942 valF1=0.6568 (320s)
+[gpu1]   [xlmr_crf s42] ep9 loss=0.2858 valF1=0.6603 (360s)
+[gpu1]   [xlmr_crf s42] ep10 loss=0.2241 valF1=0.6570 (401s)
+[gpu1]   DONE xlmr_crf s42: test token F1=0.6643
+[gpu1] === start xlmr_crf frac0.25 seed 123
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2333.02it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [xlmr_crf s123] ep1 loss=7.8972 valF1=0.5539 (39s)
+[gpu1]   [xlmr_crf s123] ep2 loss=2.0050 valF1=0.5356 (79s)
+[gpu1]   [xlmr_crf s123] ep3 loss=1.5274 valF1=0.6233 (118s)
+[gpu1]   [xlmr_crf s123] ep4 loss=1.1144 valF1=0.6316 (158s)
+[gpu1]   [xlmr_crf s123] ep5 loss=0.8841 valF1=0.6239 (199s)
+[gpu1]   [xlmr_crf s123] ep6 loss=0.6664 valF1=0.6461 (238s)
+[gpu1]   [xlmr_crf s123] ep7 loss=0.4648 valF1=0.6369 (279s)
+[gpu1]   [xlmr_crf s123] ep8 loss=0.3551 valF1=0.6334 (317s)
+[gpu1]   [xlmr_crf s123] ep9 loss=0.2886 valF1=0.6355 (356s)
+[gpu1]   DONE xlmr_crf s123: test token F1=0.6722
+[gpu1] === start xlmr_crf frac0.25 seed 456
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2377.95it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [xlmr_crf s456] ep1 loss=8.7847 valF1=0.4670 (39s)
+[gpu1]   [xlmr_crf s456] ep2 loss=1.9839 valF1=0.6322 (79s)
+[gpu1]   [xlmr_crf s456] ep3 loss=1.5228 valF1=0.5016 (119s)
+[gpu1]   [xlmr_crf s456] ep4 loss=1.1691 valF1=0.6350 (158s)
+[gpu1]   [xlmr_crf s456] ep5 loss=0.8559 valF1=0.6289 (198s)
+[gpu1]   [xlmr_crf s456] ep6 loss=0.6484 valF1=0.6463 (237s)
+[gpu1]   [xlmr_crf s456] ep7 loss=0.5016 valF1=0.6254 (278s)
+[gpu1]   [xlmr_crf s456] ep8 loss=0.3749 valF1=0.6378 (316s)
+[gpu1]   [xlmr_crf s456] ep9 loss=0.2795 valF1=0.6270 (355s)
+[gpu1]   DONE xlmr_crf s456: test token F1=0.6871
+[gpu1] data: train=5663 val=1417 test=1417 variant=frac0.5
+[gpu1] === start xlmr_crf frac0.5 seed 42
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2476.84it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] lm_hea s123] ep3 loss=1.3126 valF1=0.6564 (455s)
+[gpu0]   [xlmr_crf s123] ep4 loss=1.0395 valF1=0.6528 (607s)
+[gpu0]   [xlmr_crf s123] ep5 loss=0.8192 valF1=0.6686 (757s)
+[gpu0]   [xlmr_crf s123] ep6 loss=0.6232 valF1=0.6692 (909s)
+[gpu0]   [xlmr_crf s123] ep7 loss=0.4725 valF1=0.6547 (1060s)
+[gpu0]   [xlmr_crf s123] ep8 loss=0.3756 valF1=0.6671 (1210s)
+[gpu0]   [xlmr_crf s123] ep9 loss=0.2927 valF1=0.6580 (1361s)
+[gpu0]   DONE xlmr_crf s123: test token F1=0.6928
+[gpu0] === start xlmr_crf no_preprocessing seed 456
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2150.83it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   [xlmr_crf s456] ep1 loss=4.3944 valF1=0.6005 (152s)
+[gpu0]   [xlmr_crf s456] ep2 loss=1.6171 valF1=0.6587 (304s)
+[gpu0]   [xlmr_crf s456] ep3 loss=1.2971 valF1=0.6671 (456s)
+[gpu0]   [xlmr_crf s456] ep4 loss=1.0479 valF1=0.6762 (608s)
+[gpu0]   [xlmr_crf s456] ep5 loss=0.8125 valF1=0.6903 (759s)
+[gpu0]   [xlmr_crf s456] ep6 loss=0.6314 valF1=0.6615 (911s)
+[gpu0]   [xlmr_crf s456] ep7 loss=0.4782 valF1=0.6543 (1062s)
+[gpu0]   [xlmr_crf s456] ep8 loss=0.3840 valF1=0.6611 (1211s)
+[gpu0]   DONE xlmr_crf s456: test token F1=0.7050
+[gpu0] === start xlmr_crf no_preprocessing seed 789
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2295.95it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   [xlmr_crf s789] ep1 loss=4.7119 valF1=0.4537 (150s)
+[gpu0]   [xlmr_crf s789] ep2 loss=1.6259 valF1=0.6577 (301s)
+[gpu0]   [xlmr_crf s789] ep3 loss=1.2765 valF1=0.6595 (452s)
+[gpu0]   [xlmr_crf s789] ep4 loss=1.0295 valF1=0.6744 (603s)
+[gpu0]   [xlmr_crf s789] ep5 loss=0.8149 valF1=0.6741 (754s)
+[gpu0]   [xlmr_crf s789] ep6 loss=0.6396 valF1=0.6616 (903s)
+[gpu0]   [xlmr_crf s789] ep7 loss=0.4866 valF1=0.6642 (1051s)
+[gpu0]   DONE xlmr_crf s789: test token F1=0.7098
+[gpu0] === start xlmr_crf no_preprocessing seed 1011
+[gpu0] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2274.36it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   [xlmr_crf s1011] ep1 loss=4.5607 valF1=0.5944 (149s)
+[gpu0]   [xlmr_crf s1011] ep2 loss=1.6353 valF1=0.6166 (299s)
+[gpu0]   [xlmr_crf s1011] ep3 loss=1.2942 valF1=0.6324 (449s)
+[gpu0]   [xlmr_crf s1011] ep4 loss=1.0437 valF1=0.d.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1] /kaggle/working/repo/revision/train.py:310: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+[gpu1]   scaler = torch.cuda.amp.GradScaler(enabled=amp)
+[gpu1] /kaggle/working/repo/revision/train.py:328: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+[gpu1]   sched.step()
+[gpu1]   [xlmr_crf s42] ep1 loss=5.4973 valF1=0.5593 (77s)
+[gpu1]   [xlmr_crf s42] ep2 loss=1.7674 valF1=0.6543 (154s)
+[gpu1]   [xlmr_crf s42] ep3 loss=1.4076 valF1=0.6328 (230s)
+[gpu1]   [xlmr_crf s42] ep4 loss=1.1419 valF1=0.6522 (306s)
+[gpu1]   [xlmr_crf s42] ep5 loss=0.8975 valF1=0.6119 (381s)
+[gpu1]   DONE xlmr_crf s42: test token F1=0.6918
+[gpu1] === start xlmr_crf frac0.5 seed 123
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2411.60it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [xlmr_crf s123] ep1 loss=5.8167 valF1=0.3765 (75s)
+[gpu1]   [xlmr_crf s123] ep2 loss=1.7218 valF1=0.6040 (152s)
+[gpu1]   [xlmr_crf s123] ep3 loss=1.3700 valF1=0.6519 (229s)
+[gpu1]   [xlmr_crf s123] ep4 loss=1.0878 valF1=0.6518 (305s)
+[gpu1]   [xlmr_crf s123] ep5 loss=0.8611 valF1=0.6596 (380s)
+[gpu1]   [xlmr_crf s123] ep6 loss=0.6515 valF1=0.6384 (456s)
+[gpu1]   [xlmr_crf s123] ep7 loss=0.4885 valF1=0.6169 (531s)
+[gpu1]   [xlmr_crf s123] ep8 loss=0.3684 valF1=0.6450 (606s)
+[gpu1]   DONE xlmr_crf s123: test token F1=0.6959
+[gpu1] === start xlmr_crf frac0.5 seed 456
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2388.30it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [xlmr_crf s456] ep1 loss=6.0895 valF1=0.5566 (74s)
+[gpu1]   [xlmr_crf s456] ep2 loss=1.7914 valF1=0.6133 (150s)
+[gpu1]   [xlmr_crf s456] ep3 loss=1.3897 valF1=0.6582 (226s)
+[gpu1]   [xlmr_crf s456] ep4 loss=1.0983 valF1=0.6495 (302s)
+[gpu1]   [xlmr_crf s456] ep5 loss=0.8552 valF1=0.6254 (376s)
+[gpu1]   [xlmr_crf s456] ep6 loss=0.6388 valF1=0.6624 (451s)
+[gpu1]   [xlmr_crf s456] ep7 loss=0.5054 valF1=0.6616 (528s)
+[gpu1]   [xlmr_crf s456] ep8 loss=0.3826 valF1=0.6612 (603s)
+[gpu1]   [xlmr_crf s456] ep9 loss=0.2861 valF1=0.6583 (678s)
+[gpu1]   DONE xlmr_crf s456: test token F1=0.6981
+[gpu1] data: train=8494 val=1417 test=1417 variant=frac0.75
+[gpu1] === start xlmr_crf frac0.75 seed 42
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2142.98it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1] /kaggle/working/repo/revision/train.py:310: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+[gpu1]   scaler = torch.cuda.amp.GradScaler(enabled=amp)
+[gpu1] /kaggle/working/repo/revision/train.py:328: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+[gpu1]   sched.step()
+[gpu1]   [xlmr_crf s42] ep1 loss=4.6008 valF1=0.5579 (114s)
+[gpu1]   [xlmr_crf s42] ep2 loss=1.6415 valF1=0.6191 (228s)
+[gpu1]   [xlmr_crf s42] ep3 loss=1.3251 valF1=0.6590 (344s)
+[gpu1]   [xlmr_crf s42] ep4 loss=1.0481 valF1=0.6390 (458s)
+[gpu1]   [xlmr_crf s42] ep5 loss=0.8129 valF1=0.6547 (570s)
+[gpu1]   [xlmr_crf s42] ep6 loss=0.6265 valF1=0.6599 (682s)
+[gpu1]   [xlmr_crf s42] ep7 loss=0.4750 valF1=0.6554 (795s)
+[gpu1]   [xlmr_crf s42] ep8 loss=0.3763 valF1=0.6531 (907s)
+[gpu1]   [xlmr_crf s42] ep9 loss=0.2878 valF1=0.6487 (1019s)
+[gpu1]   DONE xlmr_crf s42: test token F1=0.6853
+[gpu1] === start xlmr_crf frac0.75 seed 123
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2508.30it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [xlmr_crf s123] ep1 loss=4.9950 valF1=0.6326 (111s)
+[gpu1]   [xlmr_crf s123] ep2 loss=1.7135 valF1=0.6284 (224s)
+[gpu1]   [xlmr_crf s123] ep3 loss=1.3574 valF1=0.6637 (334s)
+[gpu1]   [xlmr_crf s123] ep4 loss=1.0988 valF1=0.6415 (446s)
+[gpu1]   [xlmr_crf s123] ep5 loss=0.8811 valF1=0.6630 (557s)
+[gpu1]   [xlmr_crf s123] ep6 loss=0.6528 valF1=0.6567 (668s)
+[gpu1]   DONE xlmr_crf s123: test token F1=0.6799
+[gpu1] === start xlmr_crf frac0.75 seed 456
+[gpu1] Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 2350.02it/s]
+[gpu1] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-base
+[gpu1] Key                       | Status     |  | 
+[gpu1] --------------------------+------------+--+-
+[gpu1] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu1] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu1] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu1] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu1] lm_head.bias              | UNEXPECTED |  | 
+[gpu1] 
+[gpu1] Notes:
+[gpu1] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu1]   [xlmr_crf s456] ep1 loss=5.0638 valF1=0.6165 (112s)
+[gpu1]   [xlmr_crf s456] ep2 loss=1.7278 valF1=0.5570 (226s)
+[gpu1]   [xlmr_crf s456] ep3 loss=1.3772 valF1=0.6420 (337s)
+[gpu1]   [xlmr_crf s456] ep4 loss=1.0629 valF1=0.6768 (450s)
+[gpu1]   [xlmr_crf s456] ep5 loss=0.8165 valF1=0.6593 (563s)
+[gpu1]   [xlmr_crf s456] ep6 loss=0.6563 valF1=0.6726 (674s)
+[gpu1]   [xlmr_crf s456] ep7 loss=0.5125 valF1=0.6579 (786s)
+[gpu1]   DONE xlmr_crf s456: test token F1=0.6925
+6821 (599s)
+[gpu0]   [xlmr_crf s1011] ep5 loss=0.8213 valF1=0.6665 (749s)
+[gpu0]   [xlmr_crf s1011] ep6 loss=0.6296 valF1=0.6645 (898s)
+[gpu0]   [xlmr_crf s1011] ep7 loss=0.4870 valF1=0.6747 (1047s)
+[gpu0]   DONE xlmr_crf s1011: test token F1=0.7113
+[gpu0] data: train=11326 val=1417 test=1417 variant=main
+[gpu0] === start xlmr_large_crf main seed 42
+[gpu0] Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[gpu0] Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights:  59%|█████▉    | 232/391 [00:00<00:00, 2311.66it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 2355.09it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-large
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0] /kaggle/working/repo/revision/train.py:310: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+[gpu0]   scaler = torch.cuda.amp.GradScaler(enabled=amp)
+[gpu0] /kaggle/working/repo/revision/train.py:328: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+[gpu0]   sched.step()
+[gpu0]   [xlmr_large_crf s42] ep1 loss=3.7748 valF1=0.6219 (287s)
+[gpu0]   [xlmr_large_crf s42] ep2 loss=1.7591 valF1=0.6526 (578s)
+[gpu0]   [xlmr_large_crf s42] ep3 loss=1.4358 valF1=0.6301 (868s)
+[gpu0]   [xlmr_large_crf s42] ep4 loss=1.1962 valF1=0.6541 (1155s)
+[gpu0]   [xlmr_large_crf s42] ep5 loss=0.9513 valF1=0.6638 (1443s)
+[gpu0]   [xlmr_large_crf s42] ep6 loss=0.7601 valF1=0.6510 (1733s)
+[gpu0]   [xlmr_large_crf s42] ep7 loss=0.5903 valF1=0.6640 (2020s)
+[gpu0]   [xlmr_large_crf s42] ep8 loss=0.4506 valF1=0.6603 (2308s)
+[gpu0]   [xlmr_large_crf s42] ep9 loss=0.3674 valF1=0.6669 (2591s)
+[gpu0]   [xlmr_large_crf s42] ep10 loss=0.2984 valF1=0.6711 (2877s)
+[gpu0]   DONE xlmr_large_crf s42: test token F1=0.6866
+[gpu0] === start xlmr_large_crf main seed 123
+[gpu0] Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights:  59%|█████▊    | 229/391 [00:00<00:00, 2281.11it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 2343.42it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-large
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   [xlmr_large_crf s123] ep1 loss=3.6798 valF1=0.4607 (283s)
+[gpu0]   [xlmr_large_crf s123] ep2 loss=1.7513 valF1=0.6521 (568s)
+[gpu0]   [xlmr_large_crf s123] ep3 loss=1.4225 valF1=0.6471 (856s)
+[gpu0]   [xlmr_large_crf s123] ep4 loss=1.1677 valF1=0.6593 (1142s)
+[gpu0]   [xlmr_large_crf s123] ep5 loss=0.9252 valF1=0.6667 (1429s)
+[gpu0]   [xlmr_large_crf s123] ep6 loss=0.7098 valF1=0.6733 (1714s)
+[gpu0]   [xlmr_large_crf s123] ep7 loss=0.5614 valF1=0.6551 (1998s)
+[gpu0]   [xlmr_large_crf s123] ep8 loss=0.4242 valF1=0.6638 (2282s)
+[gpu0]   [xlmr_large_crf s123] ep9 loss=0.3361 valF1=0.6604 (2565s)
+[gpu0]   DONE xlmr_large_crf s123: test token F1=0.6999
+[gpu0] === start xlmr_large_crf main seed 456
+[gpu0] Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights:  58%|█████▊    | 226/391 [00:00<00:00, 2234.24it/s]Loading weights: 100%|██████████| 391/391 [00:00<00:00, 2312.11it/s]
+[gpu0] [transformers] [1mXLMRobertaModel LOAD REPORT[0m from: xlm-roberta-large
+[gpu0] Key                       | Status     |  | 
+[gpu0] --------------------------+------------+--+-
+[gpu0] lm_head.layer_norm.weight | UNEXPECTED |  | 
+[gpu0] lm_head.layer_norm.bias   | UNEXPECTED |  | 
+[gpu0] lm_head.dense.weight      | UNEXPECTED |  | 
+[gpu0] lm_head.dense.bias        | UNEXPECTED |  | 
+[gpu0] lm_head.bias              | UNEXPECTED |  | 
+[gpu0] 
+[gpu0] Notes:
+[gpu0] - UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[gpu0]   [xlmr_large_crf s456] ep1 loss=5.9690 valF1=0.6193 (283s)
+[gpu0]   [xlmr_large_crf s456] ep2 loss=1.7918 valF1=0.6592 (567s)
+[gpu0]   [xlmr_large_crf s456] ep3 loss=1.4530 valF1=0.6518 (853s)
+[gpu0]   [xlmr_large_crf s456] ep4 loss=1.1994 valF1=0.6610 (1137s)
+[gpu0]   [xlmr_large_crf s456] ep5 loss=0.9642 valF1=0.6633 (1423s)
+[gpu0]   [xlmr_large_crf s456] ep6 loss=0.7653 valF1=0.6231 (1709s)
+[gpu0]   [xlmr_large_crf s456] ep7 loss=0.5880 valF1=0.6612 (1994s)
+[gpu0]   [xlmr_large_crf s456] ep8 loss=0.4597 valF1=0.6557 (2278s)
+[gpu0]   DONE xlmr_large_crf s456: test token F1=0.6920
+# Results summary (auto-generated by revision/analyze.py)
+
+## Test-set metrics (mean ± SD over seeds)
+
+| run | seeds | token P | token R | token F1 [95% CI] | post F1 (all) | post F1 (gold≠∅) | span F1 | char F1 | invalid BIO |
+|---|---|---|---|---|---|---|---|---|---|
+| xlmr_crf__no_preprocessing | 5 | 73.4±0.9 | 68.0±2.1 | 70.6±0.8 [69.6, 71.5] | 82.0 | 71.5 | 59.5 | 82.2 | 0.00% |
+| xlmr__main | 5 | 71.8±4.6 | 69.5±4.8 | 70.4±0.5 [69.8, 70.9] | 81.3 | 71.9 | 57.4 | 81.6 | 4.60% |
+| xlmr_crf__main | 5 | 74.9±1.5 | 66.1±1.4 | 70.2±0.6 [69.5, 70.9] | 82.1 | 70.0 | 59.9 | 82.3 | 0.00% |
+| xlmr_crf__frac0.5 | 3 | 69.6±0.6 | 69.4±0.2 | 69.5±0.3 [68.7, 70.3] | 81.2 | 70.5 | 57.4 | 81.5 | 0.00% |
+| xlmr_large_crf__main | 3 | 71.2±3.4 | 67.7±3.8 | 69.3±0.7 [67.6, 70.9] | 80.6 | 69.8 | 57.2 | 80.8 | 0.00% |
+| xlmr_crf__frac0.75 | 3 | 66.8±2.9 | 70.7±3.7 | 68.6±0.6 [67.0, 70.2] | 80.6 | 70.6 | 56.6 | 80.8 | 0.00% |
+| xlmr_crf__frac0.25 | 3 | 66.9±1.6 | 68.1±3.3 | 67.4±1.2 [64.6, 70.3] | 79.1 | 69.9 | 55.5 | 79.3 | 0.00% |
+| mbert__main | 5 | 66.3±1.2 | 65.7±1.0 | 66.0±0.3 [65.7, 66.3] | 78.1 | 68.0 | 52.0 | 78.4 | 4.59% |
+| bilstm_crf__main | 5 | 68.0±1.2 | 58.4±1.7 | 62.8±0.7 [61.9, 63.6] | 77.0 | 60.5 | 51.2 | 77.2 | 0.00% |
+
+## Paired comparisons (token F1, points)
+
+- xlmr_crf__main vs xlmr__main: Δ=-0.13 [-1.01, +0.75], p=0.7760, Holm p=0.8899, A better in 2/5 seeds
+- xlmr_crf__main vs mbert__main: Δ=+4.22 [+2.80, +5.71], p=0.0001, Holm p=0.0004, A better in 5/5 seeds
+- xlmr_crf__main vs bilstm_crf__main: Δ=+7.46 [+5.69, +9.31], p=0.0001, Holm p=0.0004, A better in 5/5 seeds
+- xlmr_crf__main vs xlmr_large_crf__main: Δ=+0.59 [-0.94, +2.14], p=0.4450, Holm p=0.8899, A better in 2/3 seeds
+- xlmr_crf__main vs xlmr_crf__no_preprocessing: Δ=-0.36 [-1.16, +0.44], p=0.3708, Holm p=0.3708, A better in 1/5 seeds
+- xlmr_crf__main vs xlmr_crf__frac0.25: Δ=+2.42 [+0.91, +3.96], p=0.0026, Holm p=0.0078, A better in 3/3 seeds
+- xlmr_crf__main vs xlmr_crf__frac0.5: Δ=+0.35 [-1.02, +1.69], p=0.6137, Holm p=0.6137, A better in 2/3 seeds
+- xlmr_crf__main vs xlmr_crf__frac0.75: Δ=+1.28 [-0.15, +2.75], p=0.0714, Holm p=0.1428, A better in 3/3 seeds
+

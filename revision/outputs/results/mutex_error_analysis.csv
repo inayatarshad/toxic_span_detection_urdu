@@ -1,0 +1,9 @@
+category,count_mean_per_seed
+boundary_pred_too_long,76.8
+boundary_pred_too_short,69.6
+boundary_shifted,3.6
+gold_span_exact,573.6
+gold_span_missed,272.4
+gold_span_split_into_several,9.8
+spurious_span_in_post_with_gold,117.0
+spurious_span_in_post_without_gold,80.0

@@ -144,13 +144,18 @@ def mean_sd_ci(v):
 
 
 # --------------------------------------------------------------- statistics
-def count_matrix(runs_by_seed, ids):
+def span_counts(gold, pred):
+    g, p = set(spans(gold)), set(spans(pred))
+    return len(g & p), len(p - g), len(g - p)
+
+
+def count_matrix(runs_by_seed, ids, fn=per_post_counts):
     seeds = sorted(runs_by_seed)
     M = np.zeros((len(seeds), len(ids), 3))
     for si, s in enumerate(seeds):
         for ni, pid in enumerate(ids):
             x = runs_by_seed[s][pid]
-            M[si, ni] = per_post_counts(x["gold"], x["pred"])
+            M[si, ni] = fn(x["gold"], x["pred"])
     return M  # (seeds, posts, [tp, fp, fn])
 
 
@@ -257,31 +262,35 @@ def main():
     agg = pd.DataFrame(agg); agg.to_csv(os.path.join(res, "main_results.csv"), index=False)
 
     # ---- comparisons
-    mats = {run: count_matrix(by_seed, test_ids) for run, by_seed in runs.items()}
+    mats = {"token": {run: count_matrix(by_seed, test_ids) for run, by_seed in runs.items()},
+            "span": {run: count_matrix(by_seed, test_ids, span_counts) for run, by_seed in runs.items()}}
     ref = "xlmr_crf__main"
-    fams = {"model_comparison": [(ref, r) for r in ["xlmr__main", "mbert__main", "bilstm_crf__main", "xlmr_large_crf__main"] if r in mats],
-            "ablation_preprocessing": [(ref, r) for r in ["xlmr_crf__no_preprocessing"] if r in mats],
-            "learning_curve": [(ref, r) for r in sorted(mats) if r.startswith("xlmr_crf__frac")]}
+    have = mats["token"]
+    fams = {"model_comparison": [(ref, r) for r in ["xlmr__main", "mbert__main", "bilstm_crf__main", "xlmr_large_crf__main"] if r in have],
+            "ablation_preprocessing": [(ref, r) for r in ["xlmr_crf__no_preprocessing"] if r in have],
+            "learning_curve": [(ref, r) for r in sorted(have) if r.startswith("xlmr_crf__frac")]}
     comp = []
-    for fam, pairs in fams.items():
-        out = []
-        for a, b in pairs:
-            if a not in mats:
-                continue
-            d, lo, hi, p = compare(mats[a], mats[b], R=args.perm)
-            sa = per_run[per_run.run == a].set_index("seed").token_F1
-            sb = per_run[per_run.run == b].set_index("seed").token_F1
-            common = sorted(set(sa.index) & set(sb.index))
-            dm, dsd, dlo, dhi = mean_sd_ci((sa[common] - sb[common]).values)
-            out.append({"family": fam, "A": a, "B": b, "delta_token_F1_pts": 100 * d, "boot_ci95_lo_pts": 100 * lo,
-                        "boot_ci95_hi_pts": 100 * hi, "perm_p": p, "seed_level_delta_mean_pts": 100 * dm,
-                        "seed_level_delta_ci95_lo_pts": 100 * dlo, "seed_level_delta_ci95_hi_pts": 100 * dhi,
-                        "seeds_A_better": int(sum(sa[common] > sb[common])), "n_seeds": len(common)})
-        if out:
-            adj = holm(np.array([o["perm_p"] for o in out]))
-            for o, q in zip(out, adj):
-                o["perm_p_holm"] = q
-            comp += out
+    for metric, col in [("token", "token_F1"), ("span", "span_F1")]:
+        for fam, pairs in fams.items():
+            out = []
+            for a, b in pairs:
+                if a not in have:
+                    continue
+                d, lo, hi, p = compare(mats[metric][a], mats[metric][b], R=args.perm)
+                sa = per_run[per_run.run == a].set_index("seed")[col]
+                sb = per_run[per_run.run == b].set_index("seed")[col]
+                common = sorted(set(sa.index) & set(sb.index))
+                dm, dsd, dlo, dhi = mean_sd_ci((sa[common] - sb[common]).values)
+                out.append({"metric": metric, "family": fam, "A": a, "B": b, "delta_F1_pts": 100 * d,
+                            "boot_ci95_lo_pts": 100 * lo, "boot_ci95_hi_pts": 100 * hi, "perm_p": p,
+                            "seed_level_delta_mean_pts": 100 * dm, "seed_level_delta_ci95_lo_pts": 100 * dlo,
+                            "seed_level_delta_ci95_hi_pts": 100 * dhi,
+                            "seeds_A_better": int(sum(sa[common] > sb[common])), "n_seeds": len(common)})
+            if out:
+                adj = holm(np.array([o["perm_p"] for o in out]))
+                for o, q in zip(out, adj):
+                    o["perm_p_holm"] = q
+                comp += out
     pd.DataFrame(comp).to_csv(os.path.join(res, "significance_tests.csv"), index=False)
 
     # ---- MUTEX breakdowns (pooled over seeds)
@@ -344,9 +353,9 @@ def main():
             f.write(f"| {r.run} | {r.n_seeds} | {100*r.token_P_mean:.1f}±{100*r.token_P_sd:.1f} | {100*r.token_R_mean:.1f}±{100*r.token_R_sd:.1f} | "
                     f"{100*r.token_F1_mean:.1f}±{100*r.token_F1_sd:.1f} [{100*r.token_F1_ci_lo:.1f}, {100*r.token_F1_ci_hi:.1f}] | "
                     f"{100*r.post_F1_all_mean:.1f} | {100*r.post_F1_gold_mean:.1f} | {100*r.span_F1_mean:.1f} | {100*r.char_F1_mean:.1f} | {100*r.invalid_BIO_span_share_mean:.2f}% |\n")
-        f.write("\n## Paired comparisons (token F1, points)\n\n")
+        f.write("\n## Paired comparisons (F1 points; token-level and exact-span-level)\n\n")
         for o in comp:
-            f.write(f"- {o['A']} vs {o['B']}: Δ={o['delta_token_F1_pts']:+.2f} [{o['boot_ci95_lo_pts']:+.2f}, {o['boot_ci95_hi_pts']:+.2f}], "
+            f.write(f"- [{o['metric']}] {o['A']} vs {o['B']}: Δ={o['delta_F1_pts']:+.2f} [{o['boot_ci95_lo_pts']:+.2f}, {o['boot_ci95_hi_pts']:+.2f}], "
                     f"p={o['perm_p']:.4f}, Holm p={o['perm_p_holm']:.4f}, A better in {o['seeds_A_better']}/{o['n_seeds']} seeds\n")
     print(open(os.path.join(args.out, "results_summary.md")).read())
 
